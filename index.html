@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RSI Scanner Dashboard</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0b1020;color:#eef2ff;margin:0;padding:24px}h1{margin:0 0 6px}.muted{color:#aab4d0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}.card{background:#151d35;border:1px solid #2a3558;border-radius:12px;padding:16px}.num{font-size:28px;font-weight:700}.setup{color:#42e6a4}.watch{color:#ffd166}.wait{color:#8ab4ff}.ignore{color:#ff6b6b}.table-wrap{overflow:auto;background:#11182b;border-radius:12px}table{width:100%;border-collapse:collapse}th,td{padding:9px 10px;border-bottom:1px solid #273252;text-align:left;white-space:nowrap}th{background:#18223d;position:sticky;top:0}tr:hover{background:#17213a}.badge{font-weight:700}.refresh{margin:10px 0 18px}
+</style>
+</head>
+<body>
+<h1>📊 RSI Scanner Dashboard</h1>
+<div class="muted">Weekly RSI &gt; 50 → Hourly pullback → Oversold reversal</div>
+<div class="refresh" id="updated">Loading...</div>
+<div class="cards" id="cards"></div>
+<div class="table-wrap"><table><thead><tr><th>Symbol</th><th>LTP</th><th>Weekly RSI</th><th>Hourly RSI</th><th>Hourly Δ</th><th>History Transition</th><th>Category</th><th>Signal</th></tr></thead><tbody id="rows"></tbody></table></div>
+<script>
+const fmt=x=>x==null||x===''?'':Number(x).toFixed(2);
+async function load(){
+ try{
+  const r=await fetch('latest_results.json?t='+Date.now());
+  const data=await r.json();
+  const counts={SETUP:0,WATCH:0,WAIT:0,IGNORE:0};
+  data.forEach(x=>counts[x.Category]=(counts[x.Category]||0)+1);
+  document.getElementById('cards').innerHTML=[['🔥 SETUP','SETUP','setup'],['👀 WATCH','WATCH','watch'],['⏳ WAIT','WAIT','wait'],['❌ IGNORE','IGNORE','ignore']].map(a=>`<div class="card"><div>${a[0]}</div><div class="num ${a[2]}">${counts[a[1]]||0}</div></div>`).join('');
+  document.getElementById('rows').innerHTML=data.map(x=>`<tr><td><b>${x.Symbol}</b></td><td>₹${fmt(x['Current LTP'])}</td><td>${fmt(x['Current Week RSI'])}</td><td>${fmt(x['Current Hourly RSI'])}</td><td>${fmt(x['Hourly RSI Change'])}</td><td>${x['History Transition']||''}</td><td class="badge ${String(x.Category||'').toLowerCase()}">${x.Category||''}</td><td>${x.Signal||''}</td></tr>`).join('');
+  document.getElementById('updated').textContent='Last dashboard data: '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'});
+ }catch(e){document.getElementById('updated').textContent='Unable to load scanner data: '+e}
+}
+load();
+setInterval(load,60000);
+</script>
+</body></html>
