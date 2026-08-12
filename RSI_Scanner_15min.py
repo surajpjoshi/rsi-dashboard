@@ -19,6 +19,10 @@ INPUT_FILE = SCRIPT_FOLDER / "My-Stocks.csv"
 REPORT_TIMESTAMP = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 OUTPUT_FILE = SCRIPT_FOLDER / f"RSI_Scanner_{REPORT_TIMESTAMP}.csv"
 
+# Stable files consumed by GitHub Pages / index.html.
+LATEST_CSV_FILE = SCRIPT_FOLDER / "latest_results.csv"
+LATEST_JSON_FILE = SCRIPT_FOLDER / "latest_results.json"
+
 # Persistent RSI history. Every scan appends one row per stock.
 HISTORY_FILE = SCRIPT_FOLDER / "RSI_History.csv"
 
@@ -28,21 +32,13 @@ HOURLY_LOOKBACK_DAYS = 30
 FIFTEEN_MIN_LOOKBACK_DAYS = 10
 UPSTOX_API = "https://api.upstox.com"
 
-# Paste your Upstox token here.
+# Upstox token is supplied by GitHub Actions as a repository secret.
 import os
 
 ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
 
 if not ACCESS_TOKEN:
     raise SystemExit("ERROR: UPSTOX_ACCESS_TOKEN is not configured.")
-
-HEADERS = {
-    "Accept": "application/json",
-    "Authorization": f"Bearer {ACCESS_TOKEN}",
-}
-
-if not ACCESS_TOKEN or ACCESS_TOKEN == "PASTE_YOUR_UPSTOX_ACCESS_TOKEN_HERE":
-    raise SystemExit("ERROR: Put your Upstox token in ACCESS_TOKEN.")
 
 HEADERS = {
     "Accept": "application/json",
@@ -373,7 +369,7 @@ def classify(weekly, hourly, fifteen):
         return (
             "WAIT",
             "⏳ WAIT",
-            f"Hourly RSI {hourly_rsi:.2f} is not oversold (< 30)",
+            f"Hourly RSI {hourly_rsi:.2f} >= 30; waiting for oversold condition",
         )
 
     if fifteen is None:
@@ -545,10 +541,28 @@ def process_stock(symbol):
     }
 
 
+
+def save_latest_results(output):
+    """Write stable CSV and JSON files for the GitHub Pages dashboard."""
+    output.to_csv(
+        LATEST_CSV_FILE,
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    output.to_json(
+        LATEST_JSON_FILE,
+        orient="records",
+        date_format="iso",
+        force_ascii=False,
+        indent=2,
+    )
+
+
 def main():
     print("=" * 90)
     print("RSI SCANNER")
-    print("Weekly RSI > 50 + Hourly RSI Oversold + Completed 15m RSI Reversal")
+    print("Weekly RSI > 50 + Hourly RSI < 30 + Completed 15m RSI Reversal")
     print("=" * 90)
 
     stocks = load_stocks()
@@ -586,13 +600,17 @@ def main():
         .reset_index(drop=True)
     )
 
+    # Timestamped archive report.
     output.to_csv(
         OUTPUT_FILE,
         index=False,
         encoding="utf-8-sig",
     )
 
-    # Persist this scan for future comparisons.
+    # Stable files consumed by GitHub Pages.
+    save_latest_results(output)
+
+    # Persistent RSI history.
     save_rsi_history(results)
 
     setup_count = int((output["Category"] == "SETUP").sum())
@@ -613,7 +631,10 @@ def main():
         "15m Completed Candle",
         "15m RSI",
         "15m Previous RSI",
+        "15m Older RSI",
         "15m RSI Change",
+        "15m Previous Change",
+        "15m RSI Rising",
         "15m RSI Reversal",
         "Category",
         "Signal",
