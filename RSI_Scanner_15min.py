@@ -29,7 +29,7 @@ HISTORY_FILE = SCRIPT_FOLDER / "RSI_History.csv"
 RSI_PERIOD = 14
 WEEKLY_LOOKBACK_DAYS = 730
 HOURLY_LOOKBACK_DAYS = 30
-FIFTEEN_MIN_LOOKBACK_DAYS = 10
+FIFTEEN_MIN_LOOKBACK_DAYS = 1  # retained for compatibility; 15m now uses V3 intraday
 UPSTOX_API = "https://api.upstox.com"
 
 # Upstox token is supplied by GitHub Actions as a repository secret.
@@ -158,13 +158,36 @@ def get_candles(instrument_key, unit, interval, lookback_days):
 
 
 def get_15m_candles(instrument_key):
-    """Fetch 15-minute historical candles from Upstox V3."""
-    return get_candles(
-        instrument_key,
-        "minutes",
-        "15",
-        FIFTEEN_MIN_LOOKBACK_DAYS,
+    """
+    Fetch TODAY'S 15-minute candles from Upstox V3 Intraday API.
+
+    Important: the scanner must not use the previous trading day's
+    15-minute candles when today's market data is available. Upstox V3
+    provides the current trading day's candles through the intraday
+    endpoint:
+
+        /v3/historical-candle/intraday/{instrument_key}/minutes/15
+
+    The caller removes the currently forming candle and uses only the
+    latest completed 15-minute candles for RSI/reversal detection.
+    """
+    encoded_key = quote(instrument_key, safe="")
+
+    response = requests.get(
+        f"{UPSTOX_API}/v3/historical-candle/intraday/"
+        f"{encoded_key}/minutes/15",
+        headers=HEADERS,
+        timeout=20,
     )
+
+    if response.status_code != 200:
+        print(
+            f"  intraday/15 candle request failed: "
+            f"{response.status_code} {response.text[:300]}"
+        )
+        return []
+
+    return response.json().get("data", {}).get("candles", [])
 
 
 def get_current_ltp(instrument_key):
@@ -307,8 +330,15 @@ def get_completed_15m_rsi(instrument_key):
 
     local_time = df["timestamp"].dt.tz_convert("Asia/Kolkata")
 
+    # Safety guard: intraday should be today's data, but explicitly keep
+    # only today's candles so stale/older records can never become the
+    # signal source.
+    today = now.normalize()
+    completed_today = df[local_time.dt.normalize() == today].copy()
+    completed_today_time = completed_today["timestamp"].dt.tz_convert("Asia/Kolkata")
+
     # Exclude the currently forming 15-minute candle.
-    completed = df[local_time < current_bucket].copy()
+    completed = completed_today[completed_today_time < current_bucket].copy()
 
     if len(completed) < RSI_PERIOD + 3:
         return None
@@ -489,6 +519,8 @@ def process_stock(symbol):
     print(f"  Hourly RSI: {hourly['current']:.2f}")
     print(f"  Hourly Change: {hourly_change:+.2f}")
     print(f"  Completed 15m Candle: {fifteen['candle']}")
+    if not fifteen["candle"].startswith(datetime.now().strftime("%Y-%m-%d")):
+        print("  WARNING: completed 15m candle is not from today")
     print(
         f"  15m RSI: {fifteen['current']:.2f} | "
         f"Previous: {fifteen['previous']:.2f} | "
@@ -562,7 +594,7 @@ def save_latest_results(output):
 def main():
     print("=" * 90)
     print("RSI SCANNER")
-    print("Weekly RSI > 50 + Hourly RSI < 30 + Completed 15m RSI Reversal")
+    print("Weekly RSI > 50 + Hourly RSI < 30 + TODAY'S Completed 15m RSI Reversal")
     print("=" * 90)
 
     stocks = load_stocks()
