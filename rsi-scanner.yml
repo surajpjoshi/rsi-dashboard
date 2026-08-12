@@ -1,0 +1,54 @@
+name: RSI Scanner
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions cron uses UTC. These cover 09:15-16:15 IST,
+    # Monday-Friday, every 15 minutes.
+    - cron: '45 3 * * 1-5'
+    - cron: '*/15 4-9 * * 1-5'
+    - cron: '0,15,30,45 10 * * 1-5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rsi-scanner
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run RSI scanner
+        env:
+          UPSTOX_ACCESS_TOKEN: ${{ secrets.UPSTOX_ACCESS_TOKEN }}
+        run: python RSI_Scanner_15min.py
+
+      - name: Commit scanner output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest_results.csv latest_results.json RSI_History.csv RSI_History.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "Update RSI scanner data"
+            git push
+          fi
