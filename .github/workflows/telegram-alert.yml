@@ -1,0 +1,100 @@
+name: Telegram RSI Alerts
+
+on:
+  # Run manually for testing
+  workflow_dispatch:
+
+  # Run after the RSI scanner workflow completes.
+  workflow_run:
+    workflows: ["RSI Scanner"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-rsi-alerts
+  cancel-in-progress: false
+
+jobs:
+  telegram:
+
+    # Only run when the scanner workflow completed successfully.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+
+    steps:
+
+      # ========================================================
+      # 1. CHECKOUT
+      # ========================================================
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ========================================================
+      # 2. PYTHON
+      # ========================================================
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ========================================================
+      # 3. CHECK DATA
+      # ========================================================
+
+      - name: Verify scanner data
+        run: |
+          echo "Checking latest scanner output..."
+
+          test -f latest_results.json
+
+          echo "latest_results.json found."
+
+          python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Records:', len(d))"
+
+      # ========================================================
+      # 4. SEND TELEGRAM ALERTS
+      # ========================================================
+
+      - name: Send Telegram alerts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PYTHONUTF8: "1"
+        run: |
+          python telegram_alert.py
+
+      # ========================================================
+      # 5. COMMIT ALERT STATE
+      # ========================================================
+
+      - name: Commit Telegram alert state
+        run: |
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add telegram_alert_state.json
+
+          echo "Checking staged files..."
+
+          git status --short
+
+          if git diff --cached --quiet; then
+            echo "No alert state changes."
+          else
+            git commit -m "Update Telegram alert state"
+            git push
+            echo "Telegram alert state pushed successfully."
+          fi
