@@ -382,54 +382,12 @@ def get_completed_15m_rsi(instrument_key):
         "reversal": reversal,
     }
 
-def is_fresh_15m_reversal(symbol, candle):
-    """
-    Return True only when this completed 15-minute reversal candle has not
-    already been recorded as a reversal for this symbol.
-
-    RSI_History.csv is the persistent state across GitHub Actions runs.
-    This prevents the same completed 15m reversal from producing SETUP
-    repeatedly during the next 15-minute scans.
-    """
-    if not HISTORY_FILE.exists():
-        return True
-
-    try:
-        history = pd.read_csv(
-            HISTORY_FILE,
-            usecols=[
-                "Symbol",
-                "15m Completed Candle",
-                "15m RSI Reversal",
-            ],
-            encoding="utf-8-sig",
-        )
-    except (ValueError, FileNotFoundError, pd.errors.EmptyDataError):
-        # Older history files may not contain all columns. Treat the
-        # reversal as fresh rather than blocking the first run.
-        return True
-
-    if history.empty:
-        return True
-
-    symbol_rows = history[
-        history["Symbol"].astype(str).eq(str(symbol))
-        & history["15m Completed Candle"].astype(str).eq(str(candle))
-        & history["15m RSI Reversal"].astype(str).str.upper().eq("YES")
-    ]
-
-    return symbol_rows.empty
-
-
-def classify(weekly, hourly, fifteen, fresh_reversal=True):
+def classify(weekly, hourly, fifteen):
     """
     Strategy:
       Weekly RSI > 50
       AND Hourly RSI < 30
       AND completed 15m RSI reversal.
-
-    A SETUP is generated only for a FRESH completed 15m reversal candle.
-    The same completed candle cannot generate SETUP again on later scans.
     """
     weekly_rsi = weekly["current"]
     hourly_rsi = hourly["current"]
@@ -447,18 +405,11 @@ def classify(weekly, hourly, fifteen, fresh_reversal=True):
     if fifteen is None:
         return "WAIT", "⏳ WAIT", "Completed 15m RSI unavailable"
 
-    if fifteen["reversal"] and fresh_reversal:
+    if fifteen["reversal"]:
         return (
             "SETUP",
             "🔥 SETUP",
-            "Weekly RSI > 50 + Hourly RSI < 30 + FRESH completed 15m RSI reversal",
-        )
-
-    if fifteen["reversal"] and not fresh_reversal:
-        return (
-            "WATCH",
-            "👀 WATCH",
-            "15m reversal already signalled on this completed candle",
+            "Weekly RSI > 50 + Hourly RSI < 30 + completed 15m RSI reversal",
         )
 
     if fifteen["rising"]:
@@ -476,7 +427,7 @@ def classify(weekly, hourly, fifteen, fresh_reversal=True):
 
 
 def save_rsi_history(results):
-    """Persist the current RSI snapshot and preserve history schema."""
+    """Append the current RSI snapshot to RSI_History.csv."""
 
     if not results:
         return
@@ -501,7 +452,6 @@ def save_rsi_history(results):
         "15m Previous Change",
         "15m RSI Rising",
         "15m RSI Reversal",
-        "15m Reversal Fresh",
         "Category",
         "Signal",
         "Reason",
@@ -524,58 +474,13 @@ def save_rsi_history(results):
 
     new_history = pd.DataFrame(rows, columns=history_columns)
 
-    if HISTORY_FILE.exists():
-        try:
-            existing = pd.read_csv(
-                HISTORY_FILE,
-                encoding="utf-8-sig",
-            )
-
-            # Support older RSI_History.csv files that predate the
-            # "15m Reversal Fresh" column.
-            for column in history_columns:
-                if column not in existing.columns:
-                    existing[column] = ""
-
-            # Keep current columns first and retain any legacy columns.
-            existing = existing[
-                history_columns
-                + [
-                    column
-                    for column in existing.columns
-                    if column not in history_columns
-                ]
-            ]
-
-            combined = pd.concat(
-                [existing, new_history],
-                ignore_index=True,
-            )
-
-            combined.to_csv(
-                HISTORY_FILE,
-                mode="w",
-                header=True,
-                index=False,
-                encoding="utf-8-sig",
-            )
-
-        except pd.errors.EmptyDataError:
-            new_history.to_csv(
-                HISTORY_FILE,
-                mode="w",
-                header=True,
-                index=False,
-                encoding="utf-8-sig",
-            )
-    else:
-        new_history.to_csv(
-            HISTORY_FILE,
-            mode="w",
-            header=True,
-            index=False,
-            encoding="utf-8-sig",
-        )
+    new_history.to_csv(
+        HISTORY_FILE,
+        mode="a" if HISTORY_FILE.exists() else "w",
+        header=not HISTORY_FILE.exists(),
+        index=False,
+        encoding="utf-8-sig",
+    )
 
 
 def process_stock(symbol):
@@ -601,20 +506,10 @@ def process_stock(symbol):
         print("  ❌ Could not calculate all RSI timeframes")
         return None
 
-    fresh_reversal = (
-        is_fresh_15m_reversal(
-            symbol,
-            fifteen["candle"],
-        )
-        if fifteen["reversal"]
-        else False
-    )
-
     category, signal, reason = classify(
         weekly,
         hourly,
         fifteen,
-        fresh_reversal=fresh_reversal,
     )
 
     hourly_change = hourly["current"] - hourly["previous"]
@@ -638,10 +533,6 @@ def process_stock(symbol):
     print(
         f"  15m Reversal: "
         f"{'YES' if fifteen['reversal'] else 'NO'}"
-    )
-    print(
-        f"  15m Reversal Fresh: "
-        f"{'YES' if fresh_reversal else 'NO'}"
     )
     print(f"  Signal: {signal}")
     print(f"  Reason: {reason}")
@@ -675,9 +566,6 @@ def process_stock(symbol):
         ),
         "15m RSI Reversal": (
             "YES" if fifteen["reversal"] else "NO"
-        ),
-        "15m Reversal Fresh": (
-            "YES" if fresh_reversal else "NO"
         ),
         "Category": category,
         "Signal": signal,
@@ -780,7 +668,6 @@ def main():
         "15m Previous Change",
         "15m RSI Rising",
         "15m RSI Reversal",
-        "15m Reversal Fresh",
         "Category",
         "Signal",
         "Reason",
