@@ -32,8 +32,15 @@ HOURLY_LOOKBACK_DAYS = 30
 UPSTOX_API = "https://api.upstox.com"
 
 # Paste your Upstox token here.
-ACCESS_TOKEN ="dummy92MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIxMjMwMjQiLCJqdGkiOiI2YTdiNDcwMzgwNGQxYjRhMmM4YzYxZTkiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaXNQbHVzUGxhbiI6ZmFsc2UsImlzRXh0ZW5kZWQiOnRydWUsImlhdCI6MTc4NjQ2NDAwMywiaXNzIjoidWRhcGktZ2F0ZXdheS1zZXJ2aWNlIiwiZXhwIjoxODE4MDIxNjAwfQ.En3LhZQYkM_mjq1mSMgOW4pFarpYpTlfCQbumA1FVOg"
 
+import os
+
+ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
+
+if not ACCESS_TOKEN:
+    raise SystemExit(
+        "ERROR: UPSTOX_ACCESS_TOKEN GitHub Secret is not configured."
+    )
 if not ACCESS_TOKEN or ACCESS_TOKEN == "PASTE_YOUR_UPSTOX_ACCESS_TOKEN_HERE":
     raise SystemExit("ERROR: Put your Upstox token in ACCESS_TOKEN.")
 
