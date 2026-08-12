@@ -1,6 +1,4 @@
 import sys
-import os
-import json
 
 try:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -19,9 +17,9 @@ import requests
 SCRIPT_FOLDER = Path(__file__).resolve().parent
 INPUT_FILE = SCRIPT_FOLDER / "My-Stocks.csv"
 REPORT_TIMESTAMP = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-OUTPUT_FILE = SCRIPT_FOLDER / "latest_results.csv"
-JSON_OUTPUT_FILE = SCRIPT_FOLDER / "latest_results.json"
-HISTORY_JSON_FILE = SCRIPT_FOLDER / "RSI_History.json"
+OUTPUT_FILE = SCRIPT_FOLDER / f"RSI_Scanner_{REPORT_TIMESTAMP}.csv"
+LATEST_OUTPUT_FILE = SCRIPT_FOLDER / "latest_results.csv"
+LATEST_JSON_FILE = SCRIPT_FOLDER / "latest_results.json"
 
 # Persistent RSI history. Every scan appends one row per stock.
 HISTORY_FILE = SCRIPT_FOLDER / "RSI_History.csv"
@@ -31,18 +29,17 @@ WEEKLY_LOOKBACK_DAYS = 730
 HOURLY_LOOKBACK_DAYS = 30
 UPSTOX_API = "https://api.upstox.com"
 
-# Paste your Upstox token here.
-
+# Read the Upstox token from an environment variable.
+# GitHub Actions supplies this from the repository secret:
+# UPSTOX_ACCESS_TOKEN
 import os
 
 ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
 
 if not ACCESS_TOKEN:
     raise SystemExit(
-        "ERROR: UPSTOX_ACCESS_TOKEN GitHub Secret is not configured."
+        "ERROR: UPSTOX_ACCESS_TOKEN is not configured."
     )
-if not ACCESS_TOKEN or ACCESS_TOKEN == "PASTE_YOUR_UPSTOX_ACCESS_TOKEN_HERE":
-    raise SystemExit("ERROR: Put your Upstox token in ACCESS_TOKEN.")
 
 HEADERS = {
     "Accept": "application/json",
@@ -586,22 +583,29 @@ def main():
         .reset_index(drop=True)
     )
 
+    # Save timestamped archive report.
     output.to_csv(
         OUTPUT_FILE,
         index=False,
         encoding="utf-8-sig",
     )
 
+    # Save latest scan using stable filenames for GitHub Pages / Actions.
+    output.to_csv(
+        LATEST_OUTPUT_FILE,
+        index=False,
+        encoding="utf-8-sig",
+    )
+
+    output.to_json(
+        LATEST_JSON_FILE,
+        orient="records",
+        force_ascii=False,
+        indent=2,
+    )
+
     # Persist this scan for future comparisons.
     save_rsi_history(results)
-
-    # Publish dashboard-friendly JSON files.
-    output.to_json(JSON_OUTPUT_FILE, orient="records", force_ascii=False, indent=2)
-    try:
-        history_df = pd.read_csv(HISTORY_FILE)
-        history_df.to_json(HISTORY_JSON_FILE, orient="records", force_ascii=False, indent=2)
-    except Exception as error:
-        print(f"Warning: could not create history JSON: {error}")
 
     setup_count = int((output["Category"] == "SETUP").sum())
     watch_count = int((output["Category"] == "WATCH").sum())
@@ -631,6 +635,8 @@ def main():
     print(f"⏳ WAIT  : {wait_count}")
     print(f"❌ IGNORE: {ignore_count}")
     print(f"\nReport saved: {OUTPUT_FILE}")
+    print(f"Latest report: {LATEST_OUTPUT_FILE}")
+    print(f"Latest JSON: {LATEST_JSON_FILE}")
     print(f"History saved/appended: {HISTORY_FILE}")
     print("=" * 90)
 
