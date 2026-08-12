@@ -48,6 +48,7 @@ jobs:
   scan:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
 
@@ -147,6 +148,8 @@ jobs:
           echo "Latest JSON:"
           ls -lh latest_results.json
 
+          python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Latest JSON records:', len(d))"
+
           echo ""
 
           echo "RSI History:"
@@ -169,18 +172,8 @@ jobs:
           echo "Adding scanner files..."
 
 
-          # Latest scanner result
-          git add latest_results.csv
-
-          # JSON used by dashboard
-          git add latest_results.json
-
-          # Persistent RSI history
-          git add RSI_History.csv
-
-          # If an older/malformed history file was migrated, preserve the
-          # legacy copy so the migration survives the next GitHub Action run.
-          git add RSI_History_Legacy_*.csv 2>/dev/null || true
+          # Dashboard + history files
+          git add latest_results.csv latest_results.json RSI_History.csv
 
           # Timestamped archive reports
           git add RSI_Scanner_*.csv
