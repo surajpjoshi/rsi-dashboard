@@ -25,18 +25,24 @@ HISTORY_FILE = SCRIPT_FOLDER / "RSI_History.csv"
 RSI_PERIOD = 14
 WEEKLY_LOOKBACK_DAYS = 730
 HOURLY_LOOKBACK_DAYS = 30
-MIN15_LOOKBACK_DAYS = 15
+FIFTEEN_MIN_LOOKBACK_DAYS = 10
 UPSTOX_API = "https://api.upstox.com"
 
-# Upstox token:
-# GitHub Actions supplies UPSTOX_ACCESS_TOKEN as a repository secret.
-# For local Windows testing, set the environment variable first.
+# Paste your Upstox token here.
 import os
 
 ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
 
 if not ACCESS_TOKEN:
     raise SystemExit("ERROR: UPSTOX_ACCESS_TOKEN is not configured.")
+
+HEADERS = {
+    "Accept": "application/json",
+    "Authorization": f"Bearer {ACCESS_TOKEN}",
+}
+
+if not ACCESS_TOKEN or ACCESS_TOKEN == "PASTE_YOUR_UPSTOX_ACCESS_TOKEN_HERE":
+    raise SystemExit("ERROR: Put your Upstox token in ACCESS_TOKEN.")
 
 HEADERS = {
     "Accept": "application/json",
@@ -126,7 +132,11 @@ def find_instrument_key(symbol):
     return None
 
 
-def get_candles(instrument_key, unit, lookback_days):
+def get_candles(instrument_key, unit, interval, lookback_days):
+    """
+    Upstox Historical Candle V3.
+    URL: /historical-candle/{instrument_key}/{unit}/{interval}/{to_date}/{from_date}
+    """
     to_date = datetime.now().strftime("%Y-%m-%d")
     from_date = (
         datetime.now() - timedelta(days=lookback_days)
@@ -136,16 +146,29 @@ def get_candles(instrument_key, unit, lookback_days):
 
     response = requests.get(
         f"{UPSTOX_API}/v3/historical-candle/"
-        f"{encoded_key}/{unit}/1/{to_date}/{from_date}",
+        f"{encoded_key}/{unit}/{interval}/{to_date}/{from_date}",
         headers=HEADERS,
         timeout=20,
     )
 
     if response.status_code != 200:
-        print(f"  {unit} candle request failed: {response.status_code}")
+        print(
+            f"  {unit}/{interval} candle request failed: "
+            f"{response.status_code} {response.text[:300]}"
+        )
         return []
 
     return response.json().get("data", {}).get("candles", [])
+
+
+def get_15m_candles(instrument_key):
+    """Fetch 15-minute historical candles from Upstox V3."""
+    return get_candles(
+        instrument_key,
+        "minutes",
+        "15",
+        FIFTEEN_MIN_LOOKBACK_DAYS,
+    )
 
 
 def get_current_ltp(instrument_key):
@@ -197,7 +220,7 @@ def candle_dataframe(candles):
 
 def get_current_weekly_rsi(instrument_key, ltp):
     df = candle_dataframe(
-        get_candles(instrument_key, "weeks", WEEKLY_LOOKBACK_DAYS)
+        get_candles(instrument_key, "weeks", "1", WEEKLY_LOOKBACK_DAYS)
     )
 
     if df.empty:
@@ -232,7 +255,7 @@ def get_current_weekly_rsi(instrument_key, ltp):
 
 def get_current_hourly_rsi(instrument_key, ltp):
     df = candle_dataframe(
-        get_candles(instrument_key, "hours", HOURLY_LOOKBACK_DAYS)
+        get_candles(instrument_key, "hours", "1", HOURLY_LOOKBACK_DAYS)
     )
 
     if df.empty:
@@ -268,29 +291,28 @@ def get_current_hourly_rsi(instrument_key, ltp):
 
 def get_completed_15m_rsi(instrument_key):
     """
-    Calculate RSI(14) using ONLY completed 15-minute candles.
+    Calculate RSI using ONLY completed 15-minute candles.
 
-    The currently forming 15-minute candle is excluded:
-        current_time = floor(now, 15 minutes)
-        completed candles = candle timestamp < current_time
-
-    This prevents the RSI from changing during a live 15-minute candle
-    and prevents repeated scanner runs from counting the same candle twice.
+    Reversal = latest completed 15m RSI is rising AND the
+    preceding completed 15m RSI was not rising.
     """
-    df = candle_dataframe(
-        get_candles(instrument_key, "minutes/15", MIN15_LOOKBACK_DAYS)
-    )
+    candles = get_15m_candles(instrument_key)
+
+    if not candles:
+        return None
+
+    df = candle_dataframe(candles)
 
     if df.empty:
         return None
 
     now = pd.Timestamp.now(tz="Asia/Kolkata")
-    current_15m_start = now.floor("15min")
+    current_bucket = now.floor("15min")
 
     local_time = df["timestamp"].dt.tz_convert("Asia/Kolkata")
 
-    # IMPORTANT: only completed 15-minute candles.
-    completed = df[local_time < current_15m_start].copy()
+    # Exclude the currently forming 15-minute candle.
+    completed = df[local_time < current_bucket].copy()
 
     if len(completed) < RSI_PERIOD + 3:
         return None
@@ -300,59 +322,46 @@ def get_completed_15m_rsi(instrument_key):
         RSI_PERIOD,
     )
 
-    valid = completed.dropna(subset=["RSI"]).copy()
+    valid = completed.dropna(subset=["RSI"]).reset_index(drop=True)
 
     if len(valid) < 3:
         return None
 
-    # Current completed candle and previous completed candle.
-    current_row = valid.iloc[-1]
-    previous_row = valid.iloc[-2]
+    older = valid.iloc[-3]
+    previous = valid.iloc[-2]
+    latest = valid.iloc[-1]
 
-    current_rsi = float(current_row["RSI"])
-    previous_rsi = float(previous_row["RSI"])
+    older_rsi = float(older["RSI"])
+    previous_rsi = float(previous["RSI"])
+    latest_rsi = float(latest["RSI"])
 
-    # Count consecutive rising 15-minute candles ending at current candle.
-    rising_count = 0
+    previous_change = previous_rsi - older_rsi
+    latest_change = latest_rsi - previous_rsi
 
-    for i in range(len(valid) - 1, 0, -1):
-        current_value = float(valid.iloc[i]["RSI"])
-        previous_value = float(valid.iloc[i - 1]["RSI"])
+    reversal = (
+        latest_change > 0
+        and previous_change <= 0
+    )
 
-        if current_value > previous_value:
-            rising_count += 1
-        else:
-            break
-
-    change = current_rsi - previous_rsi
+    latest_time = latest["timestamp"].tz_convert("Asia/Kolkata")
 
     return {
-        "current": current_rsi,
+        "candle": latest_time.strftime("%Y-%m-%d %H:%M"),
+        "current": latest_rsi,
         "previous": previous_rsi,
-        "change": change,
-        "rising": change > 0,
-        "rising_count": rising_count,
-        "candle": current_row["timestamp"].tz_convert(
-            "Asia/Kolkata"
-        ).strftime("%Y-%m-%d %H:%M"),
-        "previous_candle": previous_row["timestamp"].tz_convert(
-            "Asia/Kolkata"
-        ).strftime("%Y-%m-%d %H:%M"),
+        "older": older_rsi,
+        "change": latest_change,
+        "previous_change": previous_change,
+        "rising": latest_change > 0,
+        "reversal": reversal,
     }
 
-
-def classify(weekly, hourly, min15):
+def classify(weekly, hourly, fifteen):
     """
-    Signal logic:
-
-    1. Weekly RSI > 50
-    2. Hourly RSI is the pullback/oversold filter
-    3. If Hourly RSI < 30:
-         - 15m rising count >= 2 -> SETUP
-         - 15m rising count == 1 -> NEAR SETUP
-         - otherwise -> WATCH
-    4. Hourly RSI 30-50 -> WATCH
-    5. Hourly RSI > 50 -> WAIT
+    Strategy:
+      Weekly RSI > 50
+      AND Hourly RSI < 30
+      AND completed 15m RSI reversal.
     """
     weekly_rsi = weekly["current"]
     hourly_rsi = hourly["current"]
@@ -360,46 +369,35 @@ def classify(weekly, hourly, min15):
     if weekly_rsi <= 50:
         return "IGNORE", "❌ IGNORE", "Weekly RSI <= 50"
 
-    if hourly_rsi > 50:
-        return "WAIT", "⏳ WAIT", "Hourly RSI > 50"
+    if hourly_rsi >= 30:
+        return (
+            "WAIT",
+            "⏳ WAIT",
+            f"Hourly RSI {hourly_rsi:.2f} is not oversold (< 30)",
+        )
 
-    if 30 <= hourly_rsi <= 50:
-        if min15["rising"]:
-            return (
-                "WATCH",
-                "👀 WATCH",
-                "Hourly RSI 30-50; 15m RSI rising"
-            )
+    if fifteen is None:
+        return "WAIT", "⏳ WAIT", "Completed 15m RSI unavailable"
+
+    if fifteen["reversal"]:
+        return (
+            "SETUP",
+            "🔥 SETUP",
+            "Weekly RSI > 50 + Hourly RSI < 30 + completed 15m RSI reversal",
+        )
+
+    if fifteen["rising"]:
         return (
             "WATCH",
             "👀 WATCH",
-            "Hourly RSI 30-50"
+            "Hourly RSI oversold + completed 15m RSI rising, but no fresh reversal",
         )
 
-    # Hourly RSI < 30 = oversold.
-    if hourly_rsi < 30:
-        if min15["rising_count"] >= 2:
-            return (
-                "SETUP",
-                "🔥 SETUP",
-                "Weekly RSI > 50 + Hourly RSI < 30 + "
-                "15m RSI rising for 2+ completed candles",
-            )
-
-        if min15["rising_count"] == 1:
-            return (
-                "NEAR SETUP",
-                "🟡 NEAR SETUP",
-                "Hourly RSI < 30 + 15m RSI has started rising",
-            )
-
-        return (
-            "WATCH",
-            "👀 WATCH",
-            "Hourly RSI < 30 but completed 15m RSI is not rising",
-        )
-
-    return "WAIT", "⏳ WAIT", "No setup"
+    return (
+        "WATCH",
+        "👀 WATCH",
+        "Hourly RSI oversold + completed 15m RSI still falling",
+    )
 
 
 def save_rsi_history(results):
@@ -420,13 +418,14 @@ def save_rsi_history(results):
         "Previous Hourly RSI",
         "Hourly RSI Change",
         "Hourly RSI Rising",
-        "Current 15m Candle",
-        "Current 15m RSI",
-        "Previous 15m Candle RSI",
+        "15m Completed Candle",
+        "15m RSI",
+        "15m Previous RSI",
+        "15m Older RSI",
         "15m RSI Change",
+        "15m Previous Change",
         "15m RSI Rising",
-        "15m Rising Count",
-        "History Transition",
+        "15m RSI Reversal",
         "Category",
         "Signal",
         "Reason",
@@ -434,81 +433,28 @@ def save_rsi_history(results):
 
     now_ist = pd.Timestamp.now(
         tz="Asia/Kolkata"
-    ).strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )
+    ).strftime("%Y-%m-%d %H:%M:%S")
 
-    history_rows = []
-
+    rows = []
     for result in results:
-        history_rows.append({
+        rows.append({
             "Scan Time": now_ist,
-            "Symbol": result["Symbol"],
-            "Current LTP": result["Current LTP"],
-            "Current Week RSI": result["Current Week RSI"],
-            "Previous Week RSI": result["Previous Week RSI"],
-            "Weekly RSI Change": result["Weekly RSI Change"],
-            "Current Hour": result["Current Hour"],
-            "Current Hourly RSI": result["Current Hourly RSI"],
-            "Previous Hourly RSI": result["Previous Hourly RSI"],
-            "Hourly RSI Change": result["Hourly RSI Change"],
-            "Hourly RSI Rising": result["Hourly RSI Rising"],
-            "Current 15m Candle": result["Current 15m Candle"],
-            "Current 15m RSI": result["Current 15m RSI"],
-            "Previous 15m Candle RSI": result["Previous 15m Candle RSI"],
-            "15m RSI Change": result["15m RSI Change"],
-            "15m RSI Rising": result["15m RSI Rising"],
-            "15m Rising Count": result["15m Rising Count"],
-            "History Transition": result["History Transition"],
-            "Category": result["Category"],
-            "Signal": result["Signal"],
-            "Reason": result["Reason"],
+            **{
+                key: result.get(key, "")
+                for key in history_columns
+                if key != "Scan Time"
+            },
         })
 
-    new_history = pd.DataFrame(
-        history_rows,
-        columns=history_columns,
+    new_history = pd.DataFrame(rows, columns=history_columns)
+
+    new_history.to_csv(
+        HISTORY_FILE,
+        mode="a" if HISTORY_FILE.exists() else "w",
+        header=not HISTORY_FILE.exists(),
+        index=False,
+        encoding="utf-8-sig",
     )
-
-    if HISTORY_FILE.exists():
-        new_history.to_csv(
-            HISTORY_FILE,
-            mode="a",
-            header=False,
-            index=False,
-            encoding="utf-8-sig",
-        )
-    else:
-        new_history.to_csv(
-            HISTORY_FILE,
-            mode="w",
-            header=True,
-            index=False,
-            encoding="utf-8-sig",
-        )
-
-
-def get_history_transition(weekly, hourly, min15):
-    """Create a human-readable transition for the current completed 15m candle."""
-    if weekly["current"] <= 50:
-        return "WEEKLY RSI <= 50"
-
-    if hourly["current"] > 50:
-        return "HOURLY RSI > 50"
-
-    if hourly["current"] >= 30:
-        return (
-            "HOURLY RSI 30-50 + "
-            + ("15m RISING" if min15["rising"] else "15m FALLING")
-        )
-
-    if min15["rising_count"] >= 2:
-        return "OVERSOLD + 15m RISING 2+"
-
-    if min15["rising_count"] == 1:
-        return "OVERSOLD + 15m FIRST RISE"
-
-    return "OVERSOLD + 15m FALLING"
 
 
 def process_stock(symbol):
@@ -516,52 +462,52 @@ def process_stock(symbol):
 
     instrument_key = find_instrument_key(symbol)
     if not instrument_key:
+        print("  ❌ Instrument not found")
         return None
+
+    print(f"  Instrument: {instrument_key}")
 
     ltp = get_current_ltp(instrument_key)
     if ltp is None:
+        print("  ❌ LTP unavailable")
         return None
 
     weekly = get_current_weekly_rsi(instrument_key, ltp)
     hourly = get_current_hourly_rsi(instrument_key, ltp)
-    min15 = get_completed_15m_rsi(instrument_key)
+    fifteen = get_completed_15m_rsi(instrument_key)
 
-    if weekly is None or hourly is None or min15 is None:
-        print("  ERROR: Could not calculate all RSI timeframes")
+    if weekly is None or hourly is None or fifteen is None:
+        print("  ❌ Could not calculate all RSI timeframes")
         return None
 
     category, signal, reason = classify(
         weekly,
         hourly,
-        min15,
+        fifteen,
     )
 
     hourly_change = hourly["current"] - hourly["previous"]
-    history_transition = get_history_transition(
-        weekly,
-        hourly,
-        min15,
-    )
 
     print(f"  LTP: ₹{ltp:.2f}")
     print(f"  Weekly RSI: {weekly['current']:.2f}")
     print(f"  Hourly RSI: {hourly['current']:.2f}")
     print(f"  Hourly Change: {hourly_change:+.2f}")
+    print(f"  Completed 15m Candle: {fifteen['candle']}")
     print(
-        f"  Completed 15m Candle: {min15['candle']}"
+        f"  15m RSI: {fifteen['current']:.2f} | "
+        f"Previous: {fifteen['previous']:.2f} | "
+        f"Older: {fifteen['older']:.2f}"
     )
     print(
-        f"  15m RSI: {min15['current']:.2f}"
-        f" | Previous: {min15['previous']:.2f}"
-        f" | Change: {min15['change']:+.2f}"
+        f"  15m Change: {fifteen['change']:+.2f} | "
+        f"Previous Change: {fifteen['previous_change']:+.2f}"
     )
     print(
-        f"  15m Rising: "
-        f"{'YES' if min15['rising'] else 'NO'}"
-        f" | Rising Count: {min15['rising_count']}"
+        f"  15m Reversal: "
+        f"{'YES' if fifteen['reversal'] else 'NO'}"
     )
-    print(f"  History Transition: {history_transition}")
     print(f"  Signal: {signal}")
+    print(f"  Reason: {reason}")
 
     return {
         "Symbol": symbol,
@@ -570,8 +516,7 @@ def process_stock(symbol):
         "Current Week RSI": round(weekly["current"], 2),
         "Previous Week RSI": round(weekly["previous"], 2),
         "Weekly RSI Change": round(
-            weekly["current"] - weekly["previous"],
-            2,
+            weekly["current"] - weekly["previous"], 2
         ),
         "Current Hour": hourly["hour"],
         "Current Hourly RSI": round(hourly["current"], 2),
@@ -580,15 +525,20 @@ def process_stock(symbol):
         "Hourly RSI Rising": (
             "YES" if hourly_change > 0 else "NO"
         ),
-        "Current 15m Candle": min15["candle"],
-        "Current 15m RSI": round(min15["current"], 2),
-        "Previous 15m Candle RSI": round(min15["previous"], 2),
-        "15m RSI Change": round(min15["change"], 2),
-        "15m RSI Rising": (
-            "YES" if min15["rising"] else "NO"
+        "15m Completed Candle": fifteen["candle"],
+        "15m RSI": round(fifteen["current"], 2),
+        "15m Previous RSI": round(fifteen["previous"], 2),
+        "15m Older RSI": round(fifteen["older"], 2),
+        "15m RSI Change": round(fifteen["change"], 2),
+        "15m Previous Change": round(
+            fifteen["previous_change"], 2
         ),
-        "15m Rising Count": int(min15["rising_count"]),
-        "History Transition": history_transition,
+        "15m RSI Rising": (
+            "YES" if fifteen["rising"] else "NO"
+        ),
+        "15m RSI Reversal": (
+            "YES" if fifteen["reversal"] else "NO"
+        ),
         "Category": category,
         "Signal": signal,
         "Reason": reason,
@@ -624,7 +574,7 @@ def main():
 
     output = pd.DataFrame(results)
 
-    priority = {"SETUP": 1, "NEAR SETUP": 2, "WATCH": 3, "WAIT": 4, "IGNORE": 5}
+    priority = {"SETUP": 1, "WATCH": 2, "WAIT": 3, "IGNORE": 4}
     output["_priority"] = output["Category"].map(priority).fillna(99)
 
     output = (
@@ -646,7 +596,6 @@ def main():
     save_rsi_history(results)
 
     setup_count = int((output["Category"] == "SETUP").sum())
-    near_setup_count = int((output["Category"] == "NEAR SETUP").sum())
     watch_count = int((output["Category"] == "WATCH").sum())
     wait_count = int((output["Category"] == "WAIT").sum())
     ignore_count = int((output["Category"] == "IGNORE").sum())
@@ -661,17 +610,20 @@ def main():
         "Current Hourly RSI",
         "Hourly RSI Change",
         "Hourly RSI Rising",
+        "15m Completed Candle",
+        "15m RSI",
+        "15m Previous RSI",
+        "15m RSI Change",
+        "15m RSI Reversal",
         "Category",
         "Signal",
         "Reason",
     ]
-
     print(output[columns].to_string(index=False))
 
     print("\n" + "=" * 90)
-    print(f"🔥 SETUP     : {setup_count}")
-    print(f"🟡 NEAR SETUP: {near_setup_count}")
-    print(f"👀 WATCH     : {watch_count}")
+    print(f"🔥 SETUP : {setup_count}")
+    print(f"👀 WATCH : {watch_count}")
     print(f"⏳ WAIT  : {wait_count}")
     print(f"❌ IGNORE: {ignore_count}")
     print(f"\nReport saved: {OUTPUT_FILE}")
