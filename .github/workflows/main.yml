@@ -1,54 +1,210 @@
 name: RSI Scanner
 
 on:
-  workflow_dispatch:
-  schedule:
-    # GitHub Actions cron uses UTC. These cover 09:15-16:15 IST,
-    # Monday-Friday, every 15 minutes.
-    - cron: '45 3 * * 1-5'
-    - cron: '*/15 4-9 * * 1-5'
-    - cron: '0,15,30,45 10 * * 1-5'
 
+  # Manual testing
+  workflow_dispatch:
+
+  # ============================================================
+  # MONDAY-FRIDAY
+  # INDIA TIME (IST)
+  #
+  # 09:15 IST = 03:45 UTC
+  # 09:30-09:45 IST = 04:00-04:15 UTC
+  # 10:00-15:45 IST = 04:30-10:15 UTC
+  # 16:00-16:15 IST = 10:30-10:45 UTC
+  # ============================================================
+
+  schedule:
+
+    # 09:15 IST
+    - cron: "45 3 * * 1-5"
+
+    # 09:30, 09:45 IST
+    - cron: "*/15 4 * * 1-5"
+
+    # 10:00 through 15:45 IST
+    - cron: "*/15 5-9 * * 1-5"
+
+    # 16:00 and 16:15 IST
+    - cron: "0,15 10 * * 1-5"
+
+
+# GitHub Actions needs permission to commit
+# generated scanner files back to the repository.
 permissions:
   contents: write
 
+
+# Prevent two scanner runs from modifying
+# RSI_History.csv at the same time.
 concurrency:
   group: rsi-scanner
   cancel-in-progress: false
 
+
 jobs:
+
   scan:
+
     runs-on: ubuntu-latest
-    timeout-minutes: 10
 
     steps:
+
+      # ========================================================
+      # 1. CHECKOUT
+      # ========================================================
+
       - name: Checkout repository
+
         uses: actions/checkout@v4
+
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+
+      # ========================================================
+      # 2. PYTHON
+      # ========================================================
 
       - name: Set up Python
+
         uses: actions/setup-python@v5
+
         with:
-          python-version: '3.11'
-          cache: pip
+          python-version: "3.11"
+
+
+      # ========================================================
+      # 3. DEPENDENCIES
+      # ========================================================
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+
+        run: |
+
+          python -m pip install --upgrade pip
+
+          pip install -r requirements.txt
+
+
+      # ========================================================
+      # 4. RUN RSI SCANNER
+      # ========================================================
 
       - name: Run RSI scanner
+
         env:
+
           UPSTOX_ACCESS_TOKEN: ${{ secrets.UPSTOX_ACCESS_TOKEN }}
-        run: python RSI_Scanner_15min.py
+
+          PYTHONIOENCODING: utf-8
+
+          PYTHONUTF8: "1"
+
+        run: |
+
+          python RSI_Scanner_15min.py
+
+
+      # ========================================================
+      # 5. VERIFY OUTPUT
+      # ========================================================
+
+      - name: Verify scanner output
+
+        run: |
+
+          echo "=========================================="
+          echo "RSI SCANNER OUTPUT"
+          echo "=========================================="
+
+          echo ""
+
+          ls -lah
+
+          echo ""
+
+          echo "Checking required files..."
+
+          test -f latest_results.csv
+
+          test -f latest_results.json
+
+          test -f RSI_History.csv
+
+          echo ""
+
+          echo "All required files found."
+
+          echo ""
+
+          echo "Latest result file:"
+          ls -lh latest_results.csv
+
+          echo ""
+
+          echo "Latest JSON:"
+          ls -lh latest_results.json
+
+          echo ""
+
+          echo "RSI History:"
+          ls -lh RSI_History.csv
+
+
+      # ========================================================
+      # 6. COMMIT OUTPUT
+      # ========================================================
 
       - name: Commit scanner output
+
         run: |
+
           git config user.name "github-actions[bot]"
+
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add latest_results.csv latest_results.json RSI_History.csv RSI_History.json
+
+
+          echo "Adding scanner files..."
+
+
+          # Latest scanner result
+          git add latest_results.csv
+
+          # JSON used by dashboard
+          git add latest_results.json
+
+          # Persistent RSI history
+          git add RSI_History.csv
+
+          # Timestamped archive reports
+          git add RSI_Scanner_*.csv
+
+
+          echo ""
+
+          echo "Checking staged files..."
+
+          git status --short
+
+
+          # If nothing changed, don't create an empty commit.
           if git diff --cached --quiet; then
-            echo "No data changes to commit."
+
+            echo ""
+            echo "No changes to commit."
+
           else
+
+            echo ""
+            echo "Changes detected."
+
             git commit -m "Update RSI scanner data"
+
             git push
+
+            echo ""
+            echo "RSI scanner data pushed successfully."
+
           fi
