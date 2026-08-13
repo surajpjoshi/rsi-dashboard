@@ -6,38 +6,43 @@ on:
   workflow_dispatch:
 
   # ============================================================
+  # RSI SCANNER SCHEDULE
+  #
   # MONDAY-FRIDAY
   # INDIA TIME (IST)
   #
-  # 09:15 IST = 03:45 UTC
-  # 09:30-09:45 IST = 04:00-04:15 UTC
-  # 10:00-15:45 IST = 04:30-10:15 UTC
-  # 16:00-16:15 IST = 10:30-10:45 UTC
+  # 09:15 AM to 03:30 PM
+  # Every 15 minutes
+  #
   # ============================================================
 
   schedule:
 
-    # 09:15 IST
-    - cron: "45 3 * * 1-5"
+    # 09:15, 09:30, 09:45
+    - cron: "15,30,45 9 * * 1-5"
+      timezone: "Asia/Kolkata"
 
-    # 09:30, 09:45 IST
-    - cron: "*/15 4 * * 1-5"
+    # 10:00 through 14:45
+    - cron: "*/15 10-14 * * 1-5"
+      timezone: "Asia/Kolkata"
 
-    # 10:00 through 15:45 IST
-    - cron: "*/15 5-9 * * 1-5"
-
-    # 16:00 and 16:15 IST
-    - cron: "0,15 10 * * 1-5"
+    # 15:00, 15:15, 15:30
+    - cron: "0,15,30 15 * * 1-5"
+      timezone: "Asia/Kolkata"
 
 
-# GitHub Actions needs permission to commit
-# generated scanner files back to the repository.
+# ============================================================
+# PERMISSIONS
+# ============================================================
+
 permissions:
   contents: write
 
 
-# Prevent two scanner runs from modifying
-# RSI_History.csv at the same time.
+# ============================================================
+# PREVENT OVERLAPPING RUNS
+# ============================================================
+
 concurrency:
   group: rsi-scanner
   cancel-in-progress: false
@@ -48,6 +53,7 @@ jobs:
   scan:
 
     runs-on: ubuntu-latest
+
     timeout-minutes: 10
 
     steps:
@@ -105,6 +111,22 @@ jobs:
 
         run: |
 
+          echo "=========================================="
+          echo "RUNNING RSI SCANNER"
+          echo "=========================================="
+
+          echo "GitHub UTC time:"
+          date -u
+
+          echo ""
+
+          echo "GitHub local runner time:"
+          date
+
+          echo ""
+
+          echo "Running scanner..."
+
           python RSI_Scanner_15min.py
 
 
@@ -148,6 +170,8 @@ jobs:
           echo "Latest JSON:"
           ls -lh latest_results.json
 
+          echo ""
+
           python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Latest JSON records:', len(d))"
 
           echo ""
@@ -169,32 +193,51 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
 
-          echo "Adding scanner files..."
+          echo "=========================================="
+          echo "ADDING SCANNER FILES"
+          echo "=========================================="
 
 
           # Dashboard + history files
-          git add latest_results.csv latest_results.json RSI_History.csv
+
+          git add latest_results.csv
+
+          git add latest_results.json
+
+          git add RSI_History.csv
+
 
           # Timestamped archive reports
+
           git add RSI_Scanner_*.csv
 
 
           echo ""
 
-          echo "Checking staged files..."
+          echo "=========================================="
+
+          echo "STAGED FILES"
+
+          echo "=========================================="
+
 
           git status --short
 
 
-          # If nothing changed, don't create an empty commit.
+          # ====================================================
+          # COMMIT ONLY IF SOMETHING CHANGED
+          # ====================================================
+
           if git diff --cached --quiet; then
 
             echo ""
+
             echo "No changes to commit."
 
           else
 
             echo ""
+
             echo "Changes detected."
 
             git commit -m "Update RSI scanner data"
@@ -202,6 +245,7 @@ jobs:
             git push
 
             echo ""
+
             echo "RSI scanner data pushed successfully."
 
           fi
