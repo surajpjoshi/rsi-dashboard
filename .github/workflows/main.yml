@@ -1,108 +1,349 @@
 name: RSI Scanner
 
 on:
+
+  # ============================================================
+  # MANUAL / GOOGLE SHEETS TRIGGER
+  #
+  # Google Apps Script calls this workflow through GitHub API
+  # using workflow_dispatch.
+  #
+  # ============================================================
+
   workflow_dispatch:
 
-  schedule:
-    # 09:15, 09:30, 09:45 IST = 03:45, 04:00, 04:15 UTC
-    - cron: "15,30,45 3 * * 1-5"
-    
-    # 10:00 to 14:45 IST = 04:30 to 09:15 UTC (every 15 mins)
-    - cron: "0,15,30,45 4-9 * * 1-5"
-    
-    # 15:00, 15:15, 15:30 IST = 09:30, 09:45, 10:00 UTC
-    - cron: "30,45 9 * * 1-5"  # 09:30, 09:45 UTC = 15:00, 15:15 IST
-    - cron: "0 10 * * 1-5"     # 10:00 UTC = 15:30 IST
 
+# ============================================================
+# PERMISSIONS
+# ============================================================
 
 permissions:
   contents: write
 
+
+# ============================================================
+# PREVENT OVERLAPPING RUNS
+# ============================================================
+
 concurrency:
+
   group: rsi-scanner
+
   cancel-in-progress: false
 
+
+# ============================================================
+# JOB
+# ============================================================
+
 jobs:
+
   scan:
+
     runs-on: ubuntu-latest
+
     timeout-minutes: 10
 
+
     steps:
+
+
+      # ======================================================
+      # 1. CHECKOUT REPOSITORY
+      # ======================================================
+
       - name: Checkout repository
+
         uses: actions/checkout@v4
+
         with:
+
           fetch-depth: 0
 
+
+      # ======================================================
+      # 2. SETUP PYTHON
+      # ======================================================
+
       - name: Set up Python
+
         uses: actions/setup-python@v5
+
         with:
+
           python-version: "3.11"
 
+
+      # ======================================================
+      # 3. INSTALL DEPENDENCIES
+      # ======================================================
+
       - name: Install dependencies
+
         run: |
+
+          echo "=========================================="
+          echo "INSTALLING PYTHON DEPENDENCIES"
+          echo "=========================================="
+
           python -m pip install --upgrade pip
+
           pip install -r requirements.txt
 
+
+      # ======================================================
+      # 4. RUN RSI SCANNER
+      # ======================================================
+
       - name: Run RSI scanner
+
         env:
+
           UPSTOX_ACCESS_TOKEN: ${{ secrets.UPSTOX_ACCESS_TOKEN }}
+
           PYTHONIOENCODING: utf-8
+
           PYTHONUTF8: "1"
+
         run: |
+
           echo "=========================================="
           echo "RUNNING RSI SCANNER"
           echo "=========================================="
-          echo "UTC time:"
+
+          echo ""
+
+          echo "GitHub UTC time:"
           date -u
+
           echo ""
-          echo "IST time:"
-          TZ=Asia/Kolkata date
+
+          echo "GitHub runner time:"
+          date
+
           echo ""
+
+          echo "Running Python scanner..."
+
           python RSI_Scanner_15min.py
 
-      - name: Verify scanner output
+
+      # ======================================================
+      # 5. CLEAN OLD SCANNER ARCHIVES
+      #
+      # Keep newest 20 timestamped CSV files.
+      # Older files are deleted automatically.
+      #
+      # These files are NOT deleted:
+      #
+      # latest_results.csv
+      # latest_results.json
+      # RSI_History.csv
+      #
+      # ======================================================
+
+      - name: Clean old scanner archives
+
         run: |
+
           echo "=========================================="
-          echo "VERIFYING SCANNER OUTPUT"
+          echo "CLEANING OLD RSI SCANNER ARCHIVES"
           echo "=========================================="
+
+          echo ""
+
+          echo "Archive files BEFORE cleanup:"
+
+          find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            -printf '%f\n' \
+            | sort -r
+
+          echo ""
+
+          echo "Keeping newest 20 archive files..."
+
+          echo ""
+
+          find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            -printf '%f\n' \
+            | sort -r \
+            | tail -n +21 \
+            | while read file
+              do
+
+                echo "Deleting old archive: $file"
+
+                rm -f "$file"
+
+              done
+
+          echo ""
+
+          echo "Archive files AFTER cleanup:"
+
+          find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            -printf '%f\n' \
+            | sort -r
+
+          echo ""
+
+          echo "Archive cleanup completed."
+
+
+      # ======================================================
+      # 6. VERIFY OUTPUT
+      # ======================================================
+
+      - name: Verify scanner output
+
+        run: |
+
+          echo "=========================================="
+          echo "VERIFYING RSI SCANNER OUTPUT"
+          echo "=========================================="
+
+          echo ""
+
           ls -lah
+
           echo ""
+
+          echo "Checking required files..."
+
           test -f latest_results.csv
+
           test -f latest_results.json
+
           test -f RSI_History.csv
+
           echo ""
+
           echo "All required files found."
+
           echo ""
-          echo "Latest CSV:"
+
+          echo "Latest result file:"
+
           ls -lh latest_results.csv
+
           echo ""
+
           echo "Latest JSON:"
+
           ls -lh latest_results.json
+
           echo ""
+
           python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Latest JSON records:', len(d))"
+
           echo ""
+
           echo "RSI History:"
+
           ls -lh RSI_History.csv
 
+          echo ""
+
+          echo "Scanner archive count:"
+
+          find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            | wc -l
+
+          echo ""
+
+          echo "=========================================="
+          echo "VERIFICATION COMPLETED"
+          echo "=========================================="
+
+
+      # ======================================================
+      # 7. COMMIT SCANNER OUTPUT
+      #
+      # git add -A detects:
+      #
+      # New files
+      # Modified files
+      # Deleted old files
+      #
+      # ======================================================
+
       - name: Commit scanner output
+
         run: |
+
+          echo "=========================================="
+          echo "COMMITTING RSI SCANNER OUTPUT"
+          echo "=========================================="
+
+          echo ""
+
           git config user.name "github-actions[bot]"
+
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo ""
+
           echo "Adding scanner files..."
-          git add latest_results.csv
-          git add latest_results.json
-          git add RSI_History.csv
-          git add RSI_Scanner_*.csv
+
+          git add -A latest_results.csv
+
+          git add -A latest_results.json
+
+          git add -A RSI_History.csv
+
+          git add -A RSI_Scanner_*.csv
+
           echo ""
-          echo "Staged files:"
+
+          echo "=========================================="
+          echo "STAGED FILES"
+          echo "=========================================="
+
+          echo ""
+
           git status --short
+
           echo ""
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            echo "Changes detected."
-            git commit -m "Update RSI scanner data"
-            git push
+
+          # ==================================================
+          # COMMIT ONLY IF THERE ARE CHANGES
+          # ==================================================
+
+          if git diff --cached --quiet
+          then
+
+            echo "=========================================="
+            echo "NO CHANGES DETECTED"
+            echo "=========================================="
+
             echo ""
-            echo "RSI scanner data pushed successfully."
+
+            echo "Nothing to commit."
+
+          else
+
+            echo "=========================================="
+            echo "CHANGES DETECTED"
+            echo "=========================================="
+
+            echo ""
+
+            git commit -m "Update RSI scanner data"
+
+            echo ""
+
+            echo "Pushing changes to GitHub..."
+
+            git push
+
+            echo ""
+
+            echo "=========================================="
+            echo "RSI SCANNER DATA PUSHED SUCCESSFULLY"
+            echo "=========================================="
+
           fi
