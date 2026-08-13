@@ -23,7 +23,9 @@ SCRIPT_FOLDER = Path(__file__).resolve().parent
 
 INPUT_FILE = SCRIPT_FOLDER / "My-Stocks.csv"
 
-REPORT_TIMESTAMP = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+REPORT_TIMESTAMP = datetime.now(
+    ZoneInfo("Asia/Kolkata")
+).strftime("%Y-%m-%d_%H-%M-%S")
 OUTPUT_FILE = SCRIPT_FOLDER / f"RSI_Scanner_{REPORT_TIMESTAMP}.csv"
 
 # Files consumed by GitHub Pages
