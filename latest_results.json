@@ -1,6 +1,6 @@
 [
   {
-    "Scan Time":"2026-08-13 16:10:05",
+    "Scan Time":"2026-08-13 16:12:47",
     "Symbol":"NSE:AEGISLOG",
     "Instrument Key":"NSE_EQ|INE208C01025",
     "Current LTP":1247.0,
@@ -24,7 +24,7 @@
     "Reason":"Weekly RSI 65.35 > 50 + Hourly RSI 26.75 < 30"
   },
   {
-    "Scan Time":"2026-08-13 16:10:24",
+    "Scan Time":"2026-08-13 16:13:06",
     "Symbol":"NSE:AEGISVOPAK",
     "Instrument Key":"NSE_EQ|INE0INX01018",
     "Current LTP":271.5,
@@ -48,7 +48,7 @@
     "Reason":"Hourly RSI 35.60 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:20",
+    "Scan Time":"2026-08-13 16:13:02",
     "Symbol":"NSE:CAPLIPOINT",
     "Instrument Key":"NSE_EQ|INE475E01026",
     "Current LTP":2503.0,
@@ -72,7 +72,7 @@
     "Reason":"Hourly RSI 36.88 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:26",
+    "Scan Time":"2026-08-13 16:13:08",
     "Symbol":"NSE:MINDACORP",
     "Instrument Key":"NSE_EQ|INE842C01021",
     "Current LTP":712.05,
@@ -96,7 +96,7 @@
     "Reason":"Hourly RSI 37.12 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:14",
+    "Scan Time":"2026-08-13 16:12:56",
     "Symbol":"NSE:ASTRAMICRO",
     "Instrument Key":"NSE_EQ|INE386C01029",
     "Current LTP":1711.0,
@@ -120,7 +120,7 @@
     "Reason":"Hourly RSI 44.51 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:08",
+    "Scan Time":"2026-08-13 16:12:50",
     "Symbol":"NSE:REDINGTON",
     "Instrument Key":"NSE_EQ|INE891D01026",
     "Current LTP":346.0,
@@ -144,7 +144,7 @@
     "Reason":"Hourly RSI 46.11 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:19",
+    "Scan Time":"2026-08-13 16:13:01",
     "Symbol":"NSE:SYRMA",
     "Instrument Key":"NSE_EQ|INE0DYJ01015",
     "Current LTP":1467.7,
@@ -168,7 +168,7 @@
     "Reason":"Hourly RSI 46.58 is 30-50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:16",
+    "Scan Time":"2026-08-13 16:12:59",
     "Symbol":"NSE:LAURUSLABS",
     "Instrument Key":"NSE_EQ|INE947Q01028",
     "Current LTP":1851.7,
@@ -192,7 +192,7 @@
     "Reason":"Hourly RSI 54.00 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:10",
+    "Scan Time":"2026-08-13 16:12:53",
     "Symbol":"NSE:ATHERENERG",
     "Instrument Key":"NSE_EQ|INE0LEZ01016",
     "Current LTP":1526.5,
@@ -216,7 +216,7 @@
     "Reason":"Hourly RSI 54.22 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:15",
+    "Scan Time":"2026-08-13 16:12:57",
     "Symbol":"NSE:UNIMECH",
     "Instrument Key":"NSE_EQ|INE0U3I01011",
     "Current LTP":1426.9,
@@ -240,7 +240,7 @@
     "Reason":"Hourly RSI 56.23 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:12",
+    "Scan Time":"2026-08-13 16:12:55",
     "Symbol":"NSE:SAREGAMA",
     "Instrument Key":"NSE_EQ|INE979A01025",
     "Current LTP":531.65,
@@ -264,7 +264,7 @@
     "Reason":"Hourly RSI 56.50 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:06",
+    "Scan Time":"2026-08-13 16:12:48",
     "Symbol":"NSE:KALYANKJIL",
     "Instrument Key":"NSE_EQ|INE303R01014",
     "Current LTP":613.4,
@@ -288,7 +288,7 @@
     "Reason":"Hourly RSI 60.76 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:25",
+    "Scan Time":"2026-08-13 16:13:07",
     "Symbol":"NSE:AKUMS",
     "Instrument Key":"NSE_EQ|INE09XN01023",
     "Current LTP":751.85,
@@ -312,7 +312,7 @@
     "Reason":"Hourly RSI 60.87 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:27",
+    "Scan Time":"2026-08-13 16:13:09",
     "Symbol":"NSE:COFORGE",
     "Instrument Key":"NSE_EQ|INE591G01025",
     "Current LTP":1829.0,
@@ -336,7 +336,7 @@
     "Reason":"Hourly RSI 63.30 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:18",
+    "Scan Time":"2026-08-13 16:13:00",
     "Symbol":"NSE:RRKABEL",
     "Instrument Key":"NSE_EQ|INE777K01022",
     "Current LTP":2834.2,
@@ -360,7 +360,7 @@
     "Reason":"Hourly RSI 64.26 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:15",
+    "Scan Time":"2026-08-13 16:12:58",
     "Symbol":"NSE:NAUKRI",
     "Instrument Key":"NSE_EQ|INE663F01032",
     "Current LTP":1357.3,
@@ -384,7 +384,7 @@
     "Reason":"Hourly RSI 65.35 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:07",
+    "Scan Time":"2026-08-13 16:12:49",
     "Symbol":"NSE:CYIENTDLM",
     "Instrument Key":"NSE_EQ|INE055S01018",
     "Current LTP":725.0,
@@ -408,7 +408,7 @@
     "Reason":"Hourly RSI 68.47 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:11",
+    "Scan Time":"2026-08-13 16:12:54",
     "Symbol":"NSE:GLAND",
     "Instrument Key":"NSE_EQ|INE068V01023",
     "Current LTP":2967.6,
@@ -432,7 +432,7 @@
     "Reason":"Hourly RSI 70.90 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:09",
+    "Scan Time":"2026-08-13 16:12:51",
     "Symbol":"NSE:PARAS",
     "Instrument Key":"NSE_EQ|INE045601023",
     "Current LTP":1342.2,
@@ -456,7 +456,7 @@
     "Reason":"Hourly RSI 72.88 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:22",
+    "Scan Time":"2026-08-13 16:13:05",
     "Symbol":"NSE:SUNDRMFAST",
     "Instrument Key":"NSE_EQ|INE387A01021",
     "Current LTP":1229.0,
@@ -480,7 +480,7 @@
     "Reason":"Hourly RSI 81.12 >= 50"
   },
   {
-    "Scan Time":"2026-08-13 16:10:21",
+    "Scan Time":"2026-08-13 16:13:03",
     "Symbol":"NSE:PAYTM",
     "Instrument Key":"NSE_EQ|INE982J01020",
     "Current LTP":1649.5,
