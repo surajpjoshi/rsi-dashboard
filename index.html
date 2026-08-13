@@ -181,6 +181,17 @@ tbody tr:hover{
   font-weight:800;
 }
 
+.symbol-link{
+  color:var(--cyan);
+  font-weight:800;
+  text-decoration:none;
+}
+
+.symbol-link:hover{
+  text-decoration:underline;
+  opacity:.85;
+}
+
 .rsi-good{
   color:var(--green);
   font-weight:700;
@@ -289,7 +300,7 @@ tbody tr:hover{
     <div>
       <h1>📊 RSI Scanner Dashboard</h1>
       <div class="subtitle">
-        Weekly RSI &gt; 50 + Hourly RSI &lt; 30 + Completed 15m RSI Reversal
+        Weekly RSI &gt; 50 + Hourly RSI Oversold
       </div>
     </div>
 
@@ -494,6 +505,17 @@ function sortData(data){
   });
 }
 
+function chartinkUrl(symbol){
+  const cleanSymbol = String(symbol || "")
+    .replace(/^NSE:/i, "")
+    .replace(/\\/g, "")
+    .trim();
+
+  if (!cleanSymbol) return "#";
+
+  return `https://chartink.com/stocks/${encodeURIComponent(cleanSymbol)}.html`;
+}
+
 function render(){
   const search = document.getElementById("search").value.trim().toUpperCase();
   const category = document.getElementById("category").value;
@@ -531,7 +553,30 @@ function render(){
 
     return `
       <tr>
-        <td class="symbol">${x.Symbol || "--"}</td>
+        <td class="symbol">
+          ${
+            x.Symbol
+              ? (() => {
+                  const cleanSymbol = String(x.Symbol)
+                    .replace(/^NSE:/i, "")
+                    .replace(/\\/g, "")
+                    .trim();
+
+                  return `
+                    <a
+                      href="${chartinkUrl(x.Symbol)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="symbol-link"
+                      title="Open ${cleanSymbol} on Chartink"
+                    >
+                      ${cleanSymbol}
+                    </a>
+                  `;
+                })()
+              : "--"
+          }
+        </td>
 
         <td>₹${fmt(x["Current LTP"])}</td>
 
