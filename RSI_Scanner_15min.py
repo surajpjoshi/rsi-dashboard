@@ -552,9 +552,13 @@ def process_stock(symbol):
         - hourly["previous"]
     )
 
-    scan_time = datetime.now().strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )
+   from zoneinfo import ZoneInfo
+
+scan_time = datetime.now(
+    ZoneInfo("Asia/Kolkata")
+).strftime(
+    "%Y-%m-%d %H:%M:%S"
+)
 
     print(
         f"  LTP: ₹{ltp:.2f}"
