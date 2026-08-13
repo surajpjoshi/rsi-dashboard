@@ -3,6 +3,7 @@ import os
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from urllib.parse import quote
 
 import pandas as pd
@@ -23,9 +24,7 @@ SCRIPT_FOLDER = Path(__file__).resolve().parent
 
 INPUT_FILE = SCRIPT_FOLDER / "My-Stocks.csv"
 
-REPORT_TIMESTAMP = datetime.now(
-    ZoneInfo("Asia/Kolkata")
-).strftime("%Y-%m-%d_%H-%M-%S")
+REPORT_TIMESTAMP = datetime.now(IST).strftime("%Y-%m-%d_%H-%M-%S")
 OUTPUT_FILE = SCRIPT_FOLDER / f"RSI_Scanner_{REPORT_TIMESTAMP}.csv"
 
 # Files consumed by GitHub Pages
@@ -45,6 +44,10 @@ ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
 
 if not ACCESS_TOKEN:
     raise SystemExit("ERROR: UPSTOX_ACCESS_TOKEN is not configured.")
+
+# India Standard Time (IST)
+IST = ZoneInfo("Asia/Kolkata")
+
 
 HEADERS = {
     "Accept": "application/json",
@@ -554,13 +557,9 @@ def process_stock(symbol):
         - hourly["previous"]
     )
 
-   from zoneinfo import ZoneInfo
-
-scan_time = datetime.now(
-    ZoneInfo("Asia/Kolkata")
-).strftime(
-    "%Y-%m-%d %H:%M:%S"
-)
+    scan_time = datetime.now(IST).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
 
     print(
         f"  LTP: ₹{ltp:.2f}"
