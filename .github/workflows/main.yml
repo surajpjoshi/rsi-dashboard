@@ -16,19 +16,19 @@ on:
   #
   # ============================================================
 
-  schedule:
+ schedule:
 
-    # 09:15, 09:30, 09:45
-    - cron: "15,30,45 9 * * 1-5"
-      timezone: "Asia/Kolkata"
+  # 09:17, 09:32, 09:47 IST
+  - cron: "17,32,47 9 * * 1-5"
+    timezone: "Asia/Kolkata"
 
-    # 10:00 through 14:45
-    - cron: "*/15 10-14 * * 1-5"
-      timezone: "Asia/Kolkata"
+  # 10:02 to 14:47 IST
+  - cron: "2,17,32,47 10-14 * * 1-5"
+    timezone: "Asia/Kolkata"
 
-    # 15:00, 15:15, 15:30
-    - cron: "0,15,30 15 * * 1-5"
-      timezone: "Asia/Kolkata"
+  # 15:02, 15:17, 15:32 IST
+  - cron: "2,17,32 15 * * 1-5"
+    timezone: "Asia/Kolkata"
 
 
 # ============================================================
