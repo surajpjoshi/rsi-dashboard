@@ -29,7 +29,6 @@ HISTORY_FILE = SCRIPT_FOLDER / "RSI_History.csv"
 RSI_PERIOD = 14
 WEEKLY_LOOKBACK_DAYS = 730
 HOURLY_LOOKBACK_DAYS = 30
-FIFTEEN_MIN_LOOKBACK_DAYS = 30  # historical 15m data for RSI warm-up
 UPSTOX_API = "https://api.upstox.com"
 
 # Upstox token is supplied by GitHub Actions as a repository secret.
@@ -157,37 +156,6 @@ def get_candles(instrument_key, unit, interval, lookback_days):
     return response.json().get("data", {}).get("candles", [])
 
 
-def get_15m_candles(instrument_key):
-    """
-    Fetch enough 15-minute historical candles to calculate RSI correctly.
-
-    Historical candles provide the RSI warm-up data. The actual signal is
-    still restricted to TODAY'S completed 15-minute candles inside
-    get_completed_15m_rsi().
-    """
-    encoded_key = quote(instrument_key, safe="")
-
-    to_date = datetime.now().strftime("%Y-%m-%d")
-    from_date = (
-        datetime.now() - timedelta(days=FIFTEEN_MIN_LOOKBACK_DAYS)
-    ).strftime("%Y-%m-%d")
-
-    response = requests.get(
-        f"{UPSTOX_API}/v3/historical-candle/"
-        f"{encoded_key}/minutes/15/{to_date}/{from_date}",
-        headers=HEADERS,
-        timeout=20,
-    )
-
-    if response.status_code != 200:
-        print(
-            f"  minutes/15 candle request failed: "
-            f"{response.status_code} {response.text[:300]}"
-        )
-        return []
-
-    return response.json().get("data", {}).get("candles", [])
-
 def get_current_ltp(instrument_key):
     encoded_key = quote(instrument_key, safe="")
 
@@ -307,190 +275,49 @@ def get_current_hourly_rsi(instrument_key, ltp):
 
 
 def get_completed_15m_rsi(instrument_key):
+    # 15-minute logic intentionally removed.
+    return None
+
+def classify(weekly, hourly, fifteen=None):
     """
-    Calculate RSI using historical 15-minute candles for warm-up, while
-    using ONLY today's completed 15-minute candles for the reversal signal.
-
-    Reversal:
-      latest completed 15m RSI is rising
-      AND preceding completed 15m RSI was not rising.
-    """
-    candles = get_15m_candles(instrument_key)
-
-    if not candles:
-        return None
-
-    df = candle_dataframe(candles)
-
-    if df.empty:
-        return None
-
-    now = pd.Timestamp.now(tz="Asia/Kolkata")
-    current_bucket = now.floor("15min")
-    today = now.normalize()
-
-    local_time = df["timestamp"].dt.tz_convert("Asia/Kolkata")
-
-    # Remove the currently forming candle.
-    completed = df[local_time < current_bucket].copy()
-
-    # We need historical candles before today's candles so RSI has enough
-    # warm-up data.
-    if len(completed) < RSI_PERIOD + 3:
-        return None
-
-    completed["RSI"] = calculate_rsi(
-        completed["close"],
-        RSI_PERIOD,
-    )
-
-    valid = completed.dropna(subset=["RSI"]).reset_index(drop=True)
-
-    if len(valid) < RSI_PERIOD + 3:
-        return None
-
-    # Only today's completed candles can generate the signal.
-    valid_today = valid[
-        valid["timestamp"]
-        .dt.tz_convert("Asia/Kolkata")
-        .dt.normalize()
-        == today
-    ].copy().reset_index(drop=True)
-
-    # Need three completed candles today:
-    # older -> previous -> latest
-    if len(valid_today) < 3:
-        return None
-
-    older = valid_today.iloc[-3]
-    previous = valid_today.iloc[-2]
-    latest = valid_today.iloc[-1]
-
-    older_rsi = float(older["RSI"])
-    previous_rsi = float(previous["RSI"])
-    latest_rsi = float(latest["RSI"])
-
-    previous_change = previous_rsi - older_rsi
-    latest_change = latest_rsi - previous_rsi
-
-    reversal = (
-        latest_change > 0
-        and previous_change <= 0
-    )
-
-    latest_time = latest["timestamp"].tz_convert("Asia/Kolkata")
-
-    return {
-        "candle": latest_time.strftime("%Y-%m-%d %H:%M"),
-        "current": latest_rsi,
-        "previous": previous_rsi,
-        "older": older_rsi,
-        "change": latest_change,
-        "previous_change": previous_change,
-        "rising": latest_change > 0,
-        "reversal": reversal,
-    }
-
-def classify(weekly, hourly, fifteen):
-    """
-    Strategy:
+    Current scanner strategy:
       Weekly RSI > 50
-      AND Hourly RSI < 30
-      AND completed 15m RSI reversal.
+      + Hourly RSI < 30  -> SETUP
+      + Hourly RSI 30-50 -> WATCH
+      + Hourly RSI >= 50 -> WAIT
+
+    15-minute logic has been removed.
     """
-    weekly_rsi = weekly["current"]
-    hourly_rsi = hourly["current"]
+    weekly_rsi = float(weekly["current"])
+    hourly_rsi = float(hourly["current"])
 
     if weekly_rsi <= 50:
-        return "IGNORE", "❌ IGNORE", "Weekly RSI <= 50"
-
-    if hourly_rsi >= 30:
         return (
-            "WAIT",
-            "⏳ WAIT",
-            f"Hourly RSI {hourly_rsi:.2f} >= 30; waiting for oversold condition",
+            "IGNORE",
+            "❌ IGNORE",
+            f"Weekly RSI {weekly_rsi:.2f} <= 50",
         )
 
-    if fifteen is None:
-        return "WAIT", "⏳ WAIT", "Completed 15m RSI unavailable"
-
-    if fifteen["reversal"]:
+    if hourly_rsi < 30:
         return (
             "SETUP",
             "🔥 SETUP",
-            "Weekly RSI > 50 + Hourly RSI < 30 + completed 15m RSI reversal",
+            f"Weekly RSI {weekly_rsi:.2f} > 50 + "
+            f"Hourly RSI {hourly_rsi:.2f} < 30",
         )
 
-    if fifteen["rising"]:
+    if hourly_rsi < 50:
         return (
             "WATCH",
             "👀 WATCH",
-            "Hourly RSI oversold + completed 15m RSI rising, but no fresh reversal",
+            f"Hourly RSI {hourly_rsi:.2f} is 30-50",
         )
 
     return (
-        "WATCH",
-        "👀 WATCH",
-        "Hourly RSI oversold + completed 15m RSI still falling",
+        "WAIT",
+        "⏳ WAIT",
+        f"Hourly RSI {hourly_rsi:.2f} >= 50",
     )
-
-
-def save_rsi_history(results):
-    """Append the current RSI snapshot to RSI_History.csv."""
-
-    if not results:
-        return
-
-    history_columns = [
-        "Scan Time",
-        "Symbol",
-        "Current LTP",
-        "Current Week RSI",
-        "Previous Week RSI",
-        "Weekly RSI Change",
-        "Current Hour",
-        "Current Hourly RSI",
-        "Previous Hourly RSI",
-        "Hourly RSI Change",
-        "Hourly RSI Rising",
-        "15m Completed Candle",
-        "15m RSI",
-        "15m Previous RSI",
-        "15m Older RSI",
-        "15m RSI Change",
-        "15m Previous Change",
-        "15m RSI Rising",
-        "15m RSI Reversal",
-        "Category",
-        "Signal",
-        "Reason",
-    ]
-
-    now_ist = pd.Timestamp.now(
-        tz="Asia/Kolkata"
-    ).strftime("%Y-%m-%d %H:%M:%S")
-
-    rows = []
-    for result in results:
-        rows.append({
-            "Scan Time": now_ist,
-            **{
-                key: result.get(key, "")
-                for key in history_columns
-                if key != "Scan Time"
-            },
-        })
-
-    new_history = pd.DataFrame(rows, columns=history_columns)
-
-    new_history.to_csv(
-        HISTORY_FILE,
-        mode="a" if HISTORY_FILE.exists() else "w",
-        header=not HISTORY_FILE.exists(),
-        index=False,
-        encoding="utf-8-sig",
-    )
-
 
 def process_stock(symbol):
     print(f"\nChecking {symbol} ...")
@@ -509,11 +336,11 @@ def process_stock(symbol):
 
     weekly = get_current_weekly_rsi(instrument_key, ltp)
     hourly = get_current_hourly_rsi(instrument_key, ltp)
-    fifteen = get_completed_15m_rsi(instrument_key)
-
-    if weekly is None or hourly is None or fifteen is None:
-        print("  ❌ Could not calculate all RSI timeframes")
+    if weekly is None or hourly is None:
+        print("  ❌ Could not calculate Weekly/Hourly RSI")
         return None
+
+    fifteen = None
 
     category, signal, reason = classify(
         weekly,
