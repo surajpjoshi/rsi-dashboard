@@ -1,28 +1,15 @@
 name: RSI Scanner
 
 on:
-
-  # Manual testing
   workflow_dispatch:
-
-  # ============================================================
-  # RSI SCANNER SCHEDULE
-  #
-  # MONDAY-FRIDAY
-  # INDIA TIME (IST)
-  #
-  # 09:15 AM to 03:30 PM
-  # Every 15 minutes
-  #
-  # ============================================================
 
   schedule:
 
     # 09:17 IST = 03:47 UTC
     - cron: "47 3 * * 1-5"
 
-    # 09:32, 09:47 IST = 04:02, 04:17 UTC
-    # 10:02, 10:17, 10:32, 10:47 IST = 04:32, 04:47 UTC
+    # 09:32, 09:47 IST
+    # 10:02, 10:17, 10:32, 10:47 IST
     - cron: "2,17,32,47 4 * * 1-5"
 
     # 11:02 through 14:47 IST
@@ -32,17 +19,9 @@ on:
     - cron: "2,17,32 10 * * 1-5"
 
 
-# ============================================================
-# PERMISSIONS
-# ============================================================
-
 permissions:
   contents: write
 
-
-# ============================================================
-# PREVENT OVERLAPPING RUNS
-# ============================================================
 
 concurrency:
   group: rsi-scanner
@@ -54,14 +33,9 @@ jobs:
   scan:
 
     runs-on: ubuntu-latest
-
     timeout-minutes: 10
 
     steps:
-
-      # ========================================================
-      # 1. CHECKOUT
-      # ========================================================
 
       - name: Checkout repository
 
@@ -71,10 +45,6 @@ jobs:
           fetch-depth: 0
 
 
-      # ========================================================
-      # 2. PYTHON
-      # ========================================================
-
       - name: Set up Python
 
         uses: actions/setup-python@v5
@@ -82,10 +52,6 @@ jobs:
         with:
           python-version: "3.11"
 
-
-      # ========================================================
-      # 3. DEPENDENCIES
-      # ========================================================
 
       - name: Install dependencies
 
@@ -95,10 +61,6 @@ jobs:
 
           pip install -r requirements.txt
 
-
-      # ========================================================
-      # 4. RUN RSI SCANNER
-      # ========================================================
 
       - name: Run RSI scanner
 
@@ -116,40 +78,30 @@ jobs:
           echo "RUNNING RSI SCANNER"
           echo "=========================================="
 
-          echo "GitHub UTC time:"
+          echo "UTC time:"
           date -u
 
           echo ""
 
-          echo "GitHub local runner time:"
-          date
+          echo "IST time:"
+          TZ=Asia/Kolkata date
 
           echo ""
 
-          echo "Running scanner..."
-
           python RSI_Scanner_15min.py
 
-
-      # ========================================================
-      # 5. VERIFY OUTPUT
-      # ========================================================
 
       - name: Verify scanner output
 
         run: |
 
           echo "=========================================="
-          echo "RSI SCANNER OUTPUT"
+          echo "VERIFYING SCANNER OUTPUT"
           echo "=========================================="
-
-          echo ""
 
           ls -lah
 
           echo ""
-
-          echo "Checking required files..."
 
           test -f latest_results.csv
 
@@ -163,7 +115,7 @@ jobs:
 
           echo ""
 
-          echo "Latest result file:"
+          echo "Latest CSV:"
           ls -lh latest_results.csv
 
           echo ""
@@ -181,10 +133,6 @@ jobs:
           ls -lh RSI_History.csv
 
 
-      # ========================================================
-      # 6. COMMIT OUTPUT
-      # ========================================================
-
       - name: Commit scanner output
 
         run: |
@@ -193,13 +141,7 @@ jobs:
 
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-
-          echo "=========================================="
-          echo "ADDING SCANNER FILES"
-          echo "=========================================="
-
-
-          # Dashboard + history files
+          echo "Adding scanner files..."
 
           git add latest_results.csv
 
@@ -207,37 +149,21 @@ jobs:
 
           git add RSI_History.csv
 
-
-          # Timestamped archive reports
-
           git add RSI_Scanner_*.csv
-
 
           echo ""
 
-          echo "=========================================="
-
-          echo "STAGED FILES"
-
-          echo "=========================================="
-
+          echo "Staged files:"
 
           git status --short
 
-
-          # ====================================================
-          # COMMIT ONLY IF SOMETHING CHANGED
-          # ====================================================
+          echo ""
 
           if git diff --cached --quiet; then
-
-            echo ""
 
             echo "No changes to commit."
 
           else
-
-            echo ""
 
             echo "Changes detected."
 
