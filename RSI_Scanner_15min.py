@@ -24,6 +24,9 @@ SCRIPT_FOLDER = Path(__file__).resolve().parent
 
 INPUT_FILE = SCRIPT_FOLDER / "My-Stocks.csv"
 
+# India Standard Time (IST)
+IST = ZoneInfo("Asia/Kolkata")
+
 REPORT_TIMESTAMP = datetime.now(IST).strftime("%Y-%m-%d_%H-%M-%S")
 OUTPUT_FILE = SCRIPT_FOLDER / f"RSI_Scanner_{REPORT_TIMESTAMP}.csv"
 
@@ -44,9 +47,6 @@ ACCESS_TOKEN = os.environ.get("UPSTOX_ACCESS_TOKEN", "").strip()
 
 if not ACCESS_TOKEN:
     raise SystemExit("ERROR: UPSTOX_ACCESS_TOKEN is not configured.")
-
-# India Standard Time (IST)
-IST = ZoneInfo("Asia/Kolkata")
 
 
 HEADERS = {
