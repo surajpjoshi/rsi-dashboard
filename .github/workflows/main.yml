@@ -5,9 +5,10 @@ on:
   # ============================================================
   # MANUAL / GOOGLE SHEETS TRIGGER
   #
-  # Google Apps Script calls this workflow through GitHub API
-  # using workflow_dispatch.
+  # Google Apps Script triggers this workflow using:
+  # GitHub Actions workflow_dispatch API
   #
+  # No GitHub schedule is used.
   # ============================================================
 
   workflow_dispatch:
@@ -129,12 +130,13 @@ jobs:
 
 
       # ======================================================
-      # 5. CLEAN OLD SCANNER ARCHIVES
+      # 5. CLEAN OLD RSI SCANNER ARCHIVES
       #
-      # Keep newest 20 timestamped CSV files.
-      # Older files are deleted automatically.
+      # Keep newest 20 timestamped scanner CSV files.
       #
-      # These files are NOT deleted:
+      # Older RSI_Scanner_*.csv files are deleted.
+      #
+      # These important files are NEVER deleted:
       #
       # latest_results.csv
       # latest_results.json
@@ -161,6 +163,29 @@ jobs:
 
           echo ""
 
+          # --------------------------------------------------
+          # Count archive files
+          # --------------------------------------------------
+
+          ARCHIVE_COUNT=$(find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            | wc -l)
+
+          echo "Archive count before cleanup: $ARCHIVE_COUNT"
+
+          echo ""
+
+          # --------------------------------------------------
+          # Keep newest 20 files.
+          #
+          # Filename format:
+          #
+          # RSI_Scanner_YYYY-MM-DD_HH-MM-SS.csv
+          #
+          # Reverse alphabetical sorting works because the
+          # timestamp format sorts chronologically.
+          # --------------------------------------------------
+
           echo "Keeping newest 20 archive files..."
 
           echo ""
@@ -170,7 +195,7 @@ jobs:
             -printf '%f\n' \
             | sort -r \
             | tail -n +21 \
-            | while read file
+            | while read -r file
               do
 
                 echo "Deleting old archive: $file"
@@ -190,11 +215,21 @@ jobs:
 
           echo ""
 
-          echo "Archive cleanup completed."
+          ARCHIVE_COUNT_AFTER=$(find . -maxdepth 1 -type f \
+            -name 'RSI_Scanner_*.csv' \
+            | wc -l)
+
+          echo "Archive count after cleanup: $ARCHIVE_COUNT_AFTER"
+
+          echo ""
+
+          echo "=========================================="
+          echo "ARCHIVE CLEANUP COMPLETED"
+          echo "=========================================="
 
 
       # ======================================================
-      # 6. VERIFY OUTPUT
+      # 6. VERIFY SCANNER OUTPUT
       # ======================================================
 
       - name: Verify scanner output
@@ -207,11 +242,17 @@ jobs:
 
           echo ""
 
+          echo "Repository files:"
+
           ls -lah
 
           echo ""
 
           echo "Checking required files..."
+
+          # --------------------------------------------------
+          # Required files
+          # --------------------------------------------------
 
           test -f latest_results.csv
 
@@ -225,11 +266,19 @@ jobs:
 
           echo ""
 
+          # --------------------------------------------------
+          # Latest CSV
+          # --------------------------------------------------
+
           echo "Latest result file:"
 
           ls -lh latest_results.csv
 
           echo ""
+
+          # --------------------------------------------------
+          # Latest JSON
+          # --------------------------------------------------
 
           echo "Latest JSON:"
 
@@ -237,9 +286,17 @@ jobs:
 
           echo ""
 
+          # --------------------------------------------------
+          # Validate JSON
+          # --------------------------------------------------
+
           python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Latest JSON records:', len(d))"
 
           echo ""
+
+          # --------------------------------------------------
+          # RSI History
+          # --------------------------------------------------
 
           echo "RSI History:"
 
@@ -247,7 +304,11 @@ jobs:
 
           echo ""
 
-          echo "Scanner archive count:"
+          # --------------------------------------------------
+          # Archive count
+          # --------------------------------------------------
+
+          echo "Current scanner archive count:"
 
           find . -maxdepth 1 -type f \
             -name 'RSI_Scanner_*.csv' \
@@ -263,11 +324,23 @@ jobs:
       # ======================================================
       # 7. COMMIT SCANNER OUTPUT
       #
+      # IMPORTANT:
+      #
+      # We use:
+      #
+      #     git add -A
+      #
+      # instead of:
+      #
+      #     git add RSI_Scanner_*.csv
+      #
+      # because the old files have already been deleted.
+      #
       # git add -A detects:
       #
-      # New files
-      # Modified files
-      # Deleted old files
+      #   NEW       files
+      #   MODIFIED  files
+      #   DELETED   files
       #
       # ======================================================
 
@@ -281,23 +354,32 @@ jobs:
 
           echo ""
 
+          # --------------------------------------------------
+          # Configure Git
+          # --------------------------------------------------
+
           git config user.name "github-actions[bot]"
 
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           echo ""
 
-          echo "Adding scanner files..."
+          # --------------------------------------------------
+          # Stage ALL repository changes
+          #
+          # This is important because old archive files
+          # were deleted during cleanup.
+          # --------------------------------------------------
 
-          git add -A latest_results.csv
+          echo "Staging all repository changes..."
 
-          git add -A latest_results.json
-
-          git add -A RSI_History.csv
-
-          git add -A RSI_Scanner_*.csv
+          git add -A
 
           echo ""
+
+          # --------------------------------------------------
+          # Show staged changes
+          # --------------------------------------------------
 
           echo "=========================================="
           echo "STAGED FILES"
@@ -306,6 +388,20 @@ jobs:
           echo ""
 
           git status --short
+
+          echo ""
+
+          # --------------------------------------------------
+          # Show staged summary
+          # --------------------------------------------------
+
+          echo "=========================================="
+          echo "CHANGE SUMMARY"
+          echo "=========================================="
+
+          echo ""
+
+          git diff --cached --stat
 
           echo ""
 
@@ -336,7 +432,11 @@ jobs:
 
             echo ""
 
-            echo "Pushing changes to GitHub..."
+            echo "=========================================="
+            echo "PUSHING CHANGES TO GITHUB"
+            echo "=========================================="
+
+            echo ""
 
             git push
 
