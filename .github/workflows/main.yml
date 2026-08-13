@@ -4,175 +4,105 @@ on:
   workflow_dispatch:
 
   schedule:
-
-    # 09:17 IST = 03:47 UTC
-    - cron: "47 3 * * 1-5"
-
-    # 09:32, 09:47 IST
-    # 10:02, 10:17, 10:32, 10:47 IST
-    - cron: "2,17,32,47 4 * * 1-5"
-
-    # 11:02 through 14:47 IST
-    - cron: "2,17,32,47 5-9 * * 1-5"
-
-    # 15:02, 15:17, 15:32 IST
-    - cron: "2,17,32 10 * * 1-5"
+    # 09:15, 09:30, 09:45 IST = 03:45, 04:00, 04:15 UTC
+    - cron: "15,30,45 3 * * 1-5"
+    
+    # 10:00 to 14:45 IST = 04:30 to 09:15 UTC (every 15 mins)
+    - cron: "0,15,30,45 4-9 * * 1-5"
+    
+    # 15:00, 15:15, 15:30 IST = 09:30, 09:45, 10:00 UTC
+    - cron: "30,45 9 * * 1-5"  # 09:30, 09:45 UTC = 15:00, 15:15 IST
+    - cron: "0 10 * * 1-5"     # 10:00 UTC = 15:30 IST
 
 
 permissions:
   contents: write
 
-
 concurrency:
   group: rsi-scanner
   cancel-in-progress: false
 
-
 jobs:
-
   scan:
-
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-
       - name: Checkout repository
-
         uses: actions/checkout@v4
-
         with:
           fetch-depth: 0
 
-
       - name: Set up Python
-
         uses: actions/setup-python@v5
-
         with:
           python-version: "3.11"
 
-
       - name: Install dependencies
-
         run: |
-
           python -m pip install --upgrade pip
-
           pip install -r requirements.txt
 
-
       - name: Run RSI scanner
-
         env:
-
           UPSTOX_ACCESS_TOKEN: ${{ secrets.UPSTOX_ACCESS_TOKEN }}
-
           PYTHONIOENCODING: utf-8
-
           PYTHONUTF8: "1"
-
         run: |
-
           echo "=========================================="
           echo "RUNNING RSI SCANNER"
           echo "=========================================="
-
           echo "UTC time:"
           date -u
-
           echo ""
-
           echo "IST time:"
           TZ=Asia/Kolkata date
-
           echo ""
-
           python RSI_Scanner_15min.py
 
-
       - name: Verify scanner output
-
         run: |
-
           echo "=========================================="
           echo "VERIFYING SCANNER OUTPUT"
           echo "=========================================="
-
           ls -lah
-
           echo ""
-
           test -f latest_results.csv
-
           test -f latest_results.json
-
           test -f RSI_History.csv
-
           echo ""
-
           echo "All required files found."
-
           echo ""
-
           echo "Latest CSV:"
           ls -lh latest_results.csv
-
           echo ""
-
           echo "Latest JSON:"
           ls -lh latest_results.json
-
           echo ""
-
           python -c "import json; d=json.load(open('latest_results.json', encoding='utf-8')); print('Latest JSON records:', len(d))"
-
           echo ""
-
           echo "RSI History:"
           ls -lh RSI_History.csv
 
-
       - name: Commit scanner output
-
         run: |
-
           git config user.name "github-actions[bot]"
-
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           echo "Adding scanner files..."
-
           git add latest_results.csv
-
           git add latest_results.json
-
           git add RSI_History.csv
-
           git add RSI_Scanner_*.csv
-
           echo ""
-
           echo "Staged files:"
-
           git status --short
-
           echo ""
-
           if git diff --cached --quiet; then
-
             echo "No changes to commit."
-
           else
-
             echo "Changes detected."
-
             git commit -m "Update RSI scanner data"
-
             git push
-
             echo ""
-
             echo "RSI scanner data pushed successfully."
-
           fi
