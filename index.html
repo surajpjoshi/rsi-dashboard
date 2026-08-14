@@ -181,6 +181,18 @@ tbody tr:hover{
   font-weight:800;
 }
 
+.stock-link{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:800;
+}
+
+.stock-link:hover{
+  color:var(--cyan);
+  text-decoration:underline;
+}
+
+
 .rsi-good{
   color:var(--green);
   font-weight:700;
@@ -250,18 +262,6 @@ tbody tr:hover{
   color:var(--red);
 }
 
-.reversal{
-  font-weight:800;
-}
-
-.reversal.yes{
-  color:var(--green);
-}
-
-.reversal.no{
-  color:var(--muted);
-}
-
 .reason{
   color:var(--muted);
   max-width:420px;
@@ -301,7 +301,7 @@ tbody tr:hover{
     <div>
       <h1>📊 RSI Scanner Dashboard</h1>
       <div class="subtitle">
-        Weekly RSI &gt; 50 + Hourly RSI &lt; 30 + Completed 15m RSI Reversal
+        Weekly RSI &gt; 50 + Hourly RSI &lt; 30 + Hourly RSI Rising
       </div>
     </div>
 
@@ -355,8 +355,6 @@ tbody tr:hover{
       <option value="hourlyAsc">Hourly RSI ↑</option>
       <option value="hourlyDesc">Hourly RSI ↓</option>
       <option value="weeklyDesc">Weekly RSI ↓</option>
-      <option value="15mDesc">15m RSI ↓</option>
-      <option value="15mChangeDesc">15m Change ↓</option>
       <option value="symbol">Symbol A-Z</option>
     </select>
 
@@ -375,12 +373,6 @@ tbody tr:hover{
           <th>Hourly RSI</th>
           <th>Hourly Δ</th>
           <th>Hourly Rising</th>
-          <th>Completed 15m</th>
-          <th>15m RSI</th>
-          <th>15m Prev</th>
-          <th>15m Δ</th>
-          <th>15m Rising</th>
-          <th>15m Reversal</th>
           <th>Category</th>
           <th>Signal</th>
           <th>Reason</th>
@@ -393,7 +385,7 @@ tbody tr:hover{
   </div>
 
   <div class="footer">
-    Data source: latest_results.json · Auto-refresh every 60 seconds
+    Data source: latest_results.json · Chartink links · Auto-refresh every 60 seconds
   </div>
 
 </div>
@@ -491,20 +483,22 @@ function sortData(data){
       return Number(b["Current Week RSI"] || -999) -
              Number(a["Current Week RSI"] || -999);
 
-    if (mode === "15mDesc")
-      return Number(b["15m RSI"] || -999) -
-             Number(a["15m RSI"] || -999);
-
-    if (mode === "15mChangeDesc")
-      return Number(b["15m RSI Change"] || -999) -
-             Number(a["15m RSI Change"] || -999);
-
     if (mode === "symbol")
       return String(a.Symbol || "").localeCompare(String(b.Symbol || ""));
 
     return (priority[String(a.Category || "").toUpperCase()] || 99) -
            (priority[String(b.Category || "").toUpperCase()] || 99);
   });
+}
+
+function chartinkUrl(symbol){
+  const clean = String(symbol || "")
+    .replace(/^NSE:/i, "")
+    .trim();
+
+  return "https://chartink.com/stocks/" +
+    encodeURIComponent(clean.toLowerCase()) +
+    ".html";
 }
 
 function render(){
@@ -542,16 +536,20 @@ function render(){
     const category = String(x.Category || "");
     const hourly = Number(x["Current Hourly RSI"]);
     const weekly = Number(x["Current Week RSI"]);
-    const fifteen = Number(x["15m RSI"]);
-    const fifteenChange = Number(x["15m RSI Change"]);
-
-    const reversal = String(x["15m RSI Reversal"] || "").toUpperCase();
     const hourlyRising = String(x["Hourly RSI Rising"] || "").toUpperCase();
-    const fifteenRising = String(x["15m RSI Rising"] || "").toUpperCase();
 
     return `
       <tr>
-        <td class="symbol">${x.Symbol || "--"}</td>
+        <td class="symbol">
+          ${
+            x.Symbol
+              ? `<a class="stock-link"
+                   href="${chartinkUrl(x.Symbol)}"
+                   target="_blank"
+                   rel="noopener noreferrer">${x.Symbol}</a>`
+              : "--"
+          }
+        </td>
 
         <td>
           <span class="tag-badge">
@@ -580,20 +578,10 @@ function render(){
         <td>
           ${hourlyRising === "YES" ? "🟢 YES" : "⚪ NO"}
         </td>
-
-        <td>
-          ${x["15m Completed Candle"] || "--"}
-        </td>
-
-        <td class="${rsiClass(fifteen)}">
+<td class="${rsiClass(fifteen)}">
           ${fmt(fifteen)}
         </td>
-
-        <td>
-          ${fmt(x["15m Previous RSI"])}
-        </td>
-
-        <td class="${deltaClass(fifteenChange)}">
+<td class="${deltaClass(fifteenChange)}">
           ${delta(fifteenChange)}
         </td>
 
