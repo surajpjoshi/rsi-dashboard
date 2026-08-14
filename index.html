@@ -181,17 +181,27 @@ tbody tr:hover{
   font-weight:800;
 }
 
-.stock-link{
-  color:var(--text);
-  text-decoration:none;
-  font-weight:800;
-}
-
-.stock-link:hover{
+.symbol-link{
   color:var(--cyan);
-  text-decoration:underline;
+  font-weight:800;
+  text-decoration:none;
 }
 
+.symbol-link:hover{
+  text-decoration:underline;
+  opacity:.85;
+}
+
+.tag-badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:7px;
+  border:1px solid #2a6b7a;
+  background:rgba(94,231,247,.08);
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:700;
+}
 
 .rsi-good{
   color:var(--green);
@@ -222,18 +232,6 @@ tbody tr:hover{
   font-weight:700;
 }
 
-.tag-badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:800;
-  background:rgba(94,231,247,.10);
-  color:var(--cyan);
-  border:1px solid rgba(94,231,247,.22);
-  white-space:nowrap;
-}
-
 .badge{
   display:inline-block;
   padding:5px 9px;
@@ -260,6 +258,18 @@ tbody tr:hover{
 .badge.ignore{
   background:rgba(255,107,107,.13);
   color:var(--red);
+}
+
+.reversal{
+  font-weight:800;
+}
+
+.reversal.yes{
+  color:var(--green);
+}
+
+.reversal.no{
+  color:var(--muted);
 }
 
 .reason{
@@ -301,7 +311,7 @@ tbody tr:hover{
     <div>
       <h1>📊 RSI Scanner Dashboard</h1>
       <div class="subtitle">
-        Weekly RSI &gt; 50 + Hourly RSI &lt; 30 + Hourly RSI Rising
+        Weekly RSI &gt; 50 + Hourly RSI Oversold
       </div>
     </div>
 
@@ -355,6 +365,8 @@ tbody tr:hover{
       <option value="hourlyAsc">Hourly RSI ↑</option>
       <option value="hourlyDesc">Hourly RSI ↓</option>
       <option value="weeklyDesc">Weekly RSI ↓</option>
+      <option value="15mDesc">15m RSI ↓</option>
+      <option value="15mChangeDesc">15m Change ↓</option>
       <option value="symbol">Symbol A-Z</option>
     </select>
 
@@ -373,6 +385,12 @@ tbody tr:hover{
           <th>Hourly RSI</th>
           <th>Hourly Δ</th>
           <th>Hourly Rising</th>
+          <th>Completed 15m</th>
+          <th>15m RSI</th>
+          <th>15m Prev</th>
+          <th>15m Δ</th>
+          <th>15m Rising</th>
+          <th>15m Reversal</th>
           <th>Category</th>
           <th>Signal</th>
           <th>Reason</th>
@@ -385,7 +403,7 @@ tbody tr:hover{
   </div>
 
   <div class="footer">
-    Data source: latest_results.json · Chartink links · Auto-refresh every 60 seconds
+    Data source: latest_results.json · Auto-refresh every 60 seconds
   </div>
 
 </div>
@@ -483,6 +501,14 @@ function sortData(data){
       return Number(b["Current Week RSI"] || -999) -
              Number(a["Current Week RSI"] || -999);
 
+    if (mode === "15mDesc")
+      return Number(b["15m RSI"] || -999) -
+             Number(a["15m RSI"] || -999);
+
+    if (mode === "15mChangeDesc")
+      return Number(b["15m RSI Change"] || -999) -
+             Number(a["15m RSI Change"] || -999);
+
     if (mode === "symbol")
       return String(a.Symbol || "").localeCompare(String(b.Symbol || ""));
 
@@ -492,13 +518,14 @@ function sortData(data){
 }
 
 function chartinkUrl(symbol){
-  const clean = String(symbol || "")
+  const cleanSymbol = String(symbol || "")
     .replace(/^NSE:/i, "")
+    .replace(/\\/g, "")
     .trim();
 
-  return "https://chartink.com/stocks/" +
-    encodeURIComponent(clean.toLowerCase()) +
-    ".html";
+  if (!cleanSymbol) return "#";
+
+  return `https://chartink.com/stocks/${encodeURIComponent(cleanSymbol)}.html`;
 }
 
 function render(){
@@ -509,15 +536,8 @@ function render(){
     const symbol = String(x.Symbol || "").toUpperCase();
     const cat = String(x.Category || "").toUpperCase();
 
-    const tag = String(x.Tag || "").toUpperCase();
-
-    const matchesSearch =
-      !search ||
-      symbol.includes(search) ||
-      tag.includes(search);
-
-    const matchesCategory =
-      category === "ALL" || cat === category;
+    const matchesSearch = !search || symbol.includes(search);
+    const matchesCategory = category === "ALL" || cat === category;
 
     return matchesSearch && matchesCategory;
   });
@@ -536,17 +556,36 @@ function render(){
     const category = String(x.Category || "");
     const hourly = Number(x["Current Hourly RSI"]);
     const weekly = Number(x["Current Week RSI"]);
+    const fifteen = Number(x["15m RSI"]);
+    const fifteenChange = Number(x["15m RSI Change"]);
+
+    const reversal = String(x["15m RSI Reversal"] || "").toUpperCase();
     const hourlyRising = String(x["Hourly RSI Rising"] || "").toUpperCase();
+    const fifteenRising = String(x["15m RSI Rising"] || "").toUpperCase();
 
     return `
       <tr>
         <td class="symbol">
           ${
             x.Symbol
-              ? `<a class="stock-link"
-                   href="${chartinkUrl(x.Symbol)}"
-                   target="_blank"
-                   rel="noopener noreferrer">${x.Symbol}</a>`
+              ? (() => {
+                  const cleanSymbol = String(x.Symbol)
+                    .replace(/^NSE:/i, "")
+                    .replace(/\\/g, "")
+                    .trim();
+
+                  return `
+                    <a
+                      href="${chartinkUrl(x.Symbol)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="symbol-link"
+                      title="Open ${cleanSymbol} on Chartink"
+                    >
+                      ${cleanSymbol}
+                    </a>
+                  `;
+                })()
               : "--"
           }
         </td>
@@ -578,10 +617,20 @@ function render(){
         <td>
           ${hourlyRising === "YES" ? "🟢 YES" : "⚪ NO"}
         </td>
-<td class="${rsiClass(fifteen)}">
+
+        <td>
+          ${x["15m Completed Candle"] || "--"}
+        </td>
+
+        <td class="${rsiClass(fifteen)}">
           ${fmt(fifteen)}
         </td>
-<td class="${deltaClass(fifteenChange)}">
+
+        <td>
+          ${fmt(x["15m Previous RSI"])}
+        </td>
+
+        <td class="${deltaClass(fifteenChange)}">
           ${delta(fifteenChange)}
         </td>
 
