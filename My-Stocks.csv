@@ -1,96 +1,103 @@
 Symbol,Tag
-NSE:AARTIIND,my stock
-NSE:ABB,Volume shockers
-NSE:ACMESOLAR,Volume shockers
-NSE:ADANIENSOL,Volume shockers
-NSE:AEGISLOG,Volume shockers
-NSE:AJANTPHARM,Volume shockers
-NSE:AKUMS,Volume shockers
-NSE:ALIVUS,Volume shockers
-NSE:ANANDRATHI,Volume shockers
-NSE:APARINDS,Volume shockers
-NSE:ASHOKLEY,Volume shockers
-NSE:ASTERDM,Volume shockers
-NSE:ASTRAMICRO,52 Week High
-NSE:ATHERENERG,52 Week High
-NSE:AUROPHARMA,52 Week High
-NSE:BAJAJ-AUTO,52 Week High
-NSE:BALRAMCHIN,52 Week High
-NSE:BDL,52 Week High
-NSE:BEL,52 Week High
-NSE:BEML,52 Week High
-NSE:BHARATFORG,52 Week High
-NSE:BHARTIARTL,52 Week High
-NSE:BHARTIHEXA,52 Week High
-NSE:BHEL,52 Week High
-NSE:BOSCHLTD,52 Week High
-NSE:CGPOWER,52 Week High
-NSE:CHENNPETRO,52 Week High
-NSE:COFORGE,52 Week High
-NSE:COHANCE,52 Week High
-NSE:CYIENTDLM,52 Week High
-NSE:DATAPATTNS,52 Week High
-NSE:DIVISLAB,52 Week High
-NSE:EICHERMOT,52 Week High
-NSE:ENRIN,52 Week High
-NSE:EXIDEIND,52 Week High
-NSE:FINCABLES,52 Week High
-NSE:GLAND,52 Week High
-NSE:GRANULES,52 Week High
-NSE:HAL,52 Week High
-NSE:HCLTECH,52 Week High
-NSE:HEROMOTOCO,Volume shockers
-NSE:HFCL,Volume shockers
-NSE:HONASA,Volume shockers
-NSE:HSCL,Volume shockers
-NSE:IDEA,Volume shockers
-NSE:IFCI,Volume shockers
-NSE:INFY,Volume shockers
-NSE:INOXINDIA,Volume shockers
-NSE:IPCALAB,Volume shockers
-NSE:J&KBANK,Volume shockers
-NSE:JBCHEPHARM,Volume shockers
-NSE:JINDALSAW,Volume shockers
-NSE:KIRLOSENG,Volume shockers
-NSE:LALPATHLAB,Volume shockers
-NSE:LAURUSLABS,Volume shockers
-NSE:LLOYDSME,Volume shockers
-NSE:LTM,Volume shockers
-NSE:M&M,Volume shockers
-NSE:MAZDOCK,Volume shockers
-NSE:MIDHANI,Volume shockers
-NSE:MOTHERSON,Volume shockers
-NSE:MPHASIS,Volume shockers
-NSE:MTARTECH,Volume shockers
-NSE:NAUKRI,Volume shockers
-NSE:NETWEB,Volume shockers
-NSE:NEULANDLAB,Volume shockers
-NSE:OFSS,Volume shockers
-NSE:PARAS,Volume shockers
-NSE:PAYTM,Volume shockers
-NSE:PERSISTENT,Volume shockers
-NSE:POLICYBZR,Volume shockers
-NSE:POLYMED,Volume shockers
-NSE:POWERINDIA,Volume shockers
-NSE:RADICO,Volume shockers
-NSE:RKFORGE,Volume shockers
-NSE:RRKABEL,Volume shockers
-NSE:SAILIFE,Volume shockers
-NSE:SAREGAMA,Volume shockers
-NSE:SCHNEIDER,Volume shockers
-NSE:SOLARINDS,Volume shockers
-NSE:SONACOMS,Volume shockers
-NSE:SONATSOFTW,Volume shockers
-NSE:SYRMA,Volume shockers
-NSE:TCS,Volume shockers
-NSE:TECHM,Volume shockers
-NSE:TORNTPHARM,Volume shockers
-NSE:TVSMOTOR,Volume shockers
-NSE:UNIMECH,Volume shockers
-NSE:UNOMINDA,Volume shockers
-NSE:VIJAYA,Volume shockers
-NSE:WELCORP,Volume shockers
-NSE:WIPRO,Volume shockers
-NSE:WOCKPHARMA,Volume shockers
-NSE:ZENTEC,Volume shockers
-NSE:ZYDUSLIFE,Volume shockers
+NSE:AARTIIND,Dashboard
+NSE:ABB,Dashboard
+NSE:ACMESOLAR,Dashboard
+NSE:ADANIENSOL,Dashboard
+NSE:AEGISLOG,Dashboard
+NSE:AJANTPHARM,Dashboard
+NSE:AKUMS,Dashboard
+NSE:ALIVUS,Dashboard
+NSE:ANANDRATHI,Dashboard
+NSE:APARINDS,Dashboard
+NSE:ASHOKLEY,Dashboard
+NSE:ASTERDM,Dashboard
+NSE:ASTRAMICRO,Dashboard
+NSE:ATHERENERG,Dashboard
+NSE:AUROPHARMA,Dashboard
+NSE:BAJAJ-AUTO,Dashboard
+NSE:BALRAMCHIN,Dashboard
+NSE:BDL,Dashboard
+NSE:BEL,Dashboard
+NSE:BEML,Dashboard
+NSE:BHARATFORG,Dashboard
+NSE:BHARTIARTL,Dashboard
+NSE:BHARTIHEXA,Dashboard
+NSE:BHEL,Dashboard
+NSE:BOSCHLTD,Dashboard
+NSE:CGPOWER,Dashboard
+NSE:CHENNPETRO,Dashboard
+NSE:COFORGE,Dashboard
+NSE:COHANCE,Dashboard
+NSE:CYIENTDLM,Dashboard
+NSE:DATAPATTNS,Dashboard
+NSE:DIVISLAB,Dashboard
+NSE:EICHERMOT,Dashboard
+NSE:ENRIN,Dashboard
+NSE:EXIDEIND,Dashboard
+NSE:FINCABLES,Dashboard
+NSE:GLAND,Volume Shocker
+NSE:GRANULES,Dashboard
+NSE:HAL,Dashboard
+NSE:HCLTECH,Dashboard
+NSE:HEROMOTOCO,Dashboard
+NSE:HFCL,Dashboard
+NSE:HONASA,Dashboard
+NSE:HSCL,Dashboard
+NSE:IDEA,Dashboard
+NSE:IFCI,Dashboard
+NSE:INFY,Dashboard
+NSE:INOXINDIA,Dashboard
+NSE:IPCALAB,Dashboard
+NSE:J&KBANK,Dashboard
+NSE:JBCHEPHARM,Dashboard
+NSE:JINDALSAW,Dashboard
+NSE:KIRLOSENG,Dashboard
+NSE:LALPATHLAB,Dashboard
+NSE:LAURUSLABS,Dashboard
+NSE:LLOYDSME,Dashboard
+NSE:LTM,Dashboard
+NSE:M&M,Dashboard
+NSE:MAZDOCK,Dashboard
+NSE:MIDHANI,Dashboard
+NSE:MOTHERSON,Dashboard
+NSE:MPHASIS,Dashboard
+NSE:MTARTECH,Dashboard
+NSE:NAUKRI,Dashboard
+NSE:NETWEB,Dashboard
+NSE:NEULANDLAB,Dashboard
+NSE:OFSS,Dashboard
+NSE:PARAS,Dashboard
+NSE:PAYTM,Dashboard
+NSE:PERSISTENT,Dashboard
+NSE:POLICYBZR,Dashboard
+NSE:POLYMED,Dashboard
+NSE:POWERINDIA,Dashboard
+NSE:RADICO,Dashboard
+NSE:RKFORGE,Dashboard
+NSE:RRKABEL,Dashboard
+NSE:SAILIFE,Dashboard
+NSE:SAREGAMA,Dashboard
+NSE:SCHNEIDER,Dashboard
+NSE:SOLARINDS,Dashboard
+NSE:SONACOMS,Dashboard
+NSE:SONATSOFTW,Dashboard
+NSE:SYRMA,Dashboard
+NSE:TCS,Dashboard
+NSE:TECHM,Dashboard
+NSE:TORNTPHARM,Dashboard
+NSE:TVSMOTOR,Dashboard
+NSE:UNIMECH,Dashboard
+NSE:UNOMINDA,Dashboard
+NSE:VIJAYA,Dashboard
+NSE:WELCORP,Dashboard
+NSE:WIPRO,Dashboard
+NSE:WOCKPHARMA,Dashboard
+NSE:ZENTEC,Dashboard
+NSE:ZYDUSLIFE,Dashboard
+NSE:LGEINDIA,Volume Shocker
+NSE:ASTRAL,Volume Shocker
+NSE:FINCABLES,Volume Shocker
+NSE:GODREJAGRO,Volume Shocker
+NSE:HAPPSTMNDS,Volume Shocker
+NSE:NAZARA,Volume Shocker
+NSE:OFSS,Volume Shocker
