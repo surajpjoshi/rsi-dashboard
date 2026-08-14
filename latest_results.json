@@ -1,6 +1,6 @@
 [
   {
-    "Scan Time":"2026-08-14 17:31:17",
+    "Scan Time":"2026-08-14 17:53:27",
     "Symbol":"NSE:LAURUSLABS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE947Q01028",
@@ -25,7 +25,7 @@
     "Reason":"Hourly RSI 30.54 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:16",
+    "Scan Time":"2026-08-14 17:53:26",
     "Symbol":"NSE:LALPATHLAB",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE600L01024",
@@ -50,7 +50,7 @@
     "Reason":"Hourly RSI 33.52 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:37",
+    "Scan Time":"2026-08-14 17:52:45",
     "Symbol":"NSE:ASHOKLEY",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE208A01029",
@@ -75,7 +75,7 @@
     "Reason":"Hourly RSI 34.18 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:37",
+    "Scan Time":"2026-08-14 17:52:46",
     "Symbol":"NSE:ASTERDM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE914M01019",
@@ -100,7 +100,7 @@
     "Reason":"Hourly RSI 34.96 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:40",
+    "Scan Time":"2026-08-14 17:52:49",
     "Symbol":"NSE:AUROPHARMA",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE406A01037",
@@ -125,7 +125,7 @@
     "Reason":"Hourly RSI 35.07 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:46",
+    "Scan Time":"2026-08-14 17:53:58",
     "Symbol":"NSE:TVSMOTOR",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE494B01023",
@@ -150,7 +150,7 @@
     "Reason":"Hourly RSI 36.81 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:51",
+    "Scan Time":"2026-08-14 17:54:00",
     "Symbol":"NSE:UNOMINDA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE405E01023",
@@ -175,7 +175,7 @@
     "Reason":"Hourly RSI 37.26 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:57",
+    "Scan Time":"2026-08-14 17:54:06",
     "Symbol":"NSE:ZYDUSLIFE",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE010B01027",
@@ -200,7 +200,7 @@
     "Reason":"Hourly RSI 37.92 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:46",
+    "Scan Time":"2026-08-14 17:52:55",
     "Symbol":"NSE:BHARATFORG",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE465A01025",
@@ -225,7 +225,7 @@
     "Reason":"Hourly RSI 37.95 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:59",
+    "Scan Time":"2026-08-14 17:53:09",
     "Symbol":"NSE:EXIDEIND",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE302A01020",
@@ -250,7 +250,7 @@
     "Reason":"Hourly RSI 38.28 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:18",
+    "Scan Time":"2026-08-14 17:53:28",
     "Symbol":"NSE:LLOYDSME",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE281B01032",
@@ -275,7 +275,7 @@
     "Reason":"Hourly RSI 39.37 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:31",
+    "Scan Time":"2026-08-14 17:52:39",
     "Symbol":"NSE:AEGISLOG",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE208C01025",
@@ -300,7 +300,7 @@
     "Reason":"Hourly RSI 39.69 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:33",
+    "Scan Time":"2026-08-14 17:52:41",
     "Symbol":"NSE:AKUMS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE09XN01023",
@@ -325,7 +325,7 @@
     "Reason":"Hourly RSI 39.79 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:45",
+    "Scan Time":"2026-08-14 17:53:57",
     "Symbol":"NSE:TORNTPHARM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE685A01028",
@@ -350,7 +350,7 @@
     "Reason":"Hourly RSI 39.85 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:41",
+    "Scan Time":"2026-08-14 17:53:52",
     "Symbol":"NSE:SONACOMS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE073K01018",
@@ -375,7 +375,7 @@
     "Reason":"Hourly RSI 40.04 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:32",
+    "Scan Time":"2026-08-14 17:53:44",
     "Symbol":"NSE:POLYMED",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE205C01021",
@@ -400,7 +400,7 @@
     "Reason":"Hourly RSI 40.45 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:39",
+    "Scan Time":"2026-08-14 17:53:51",
     "Symbol":"NSE:SCHNEIDER",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE839M01018",
@@ -425,7 +425,7 @@
     "Reason":"Hourly RSI 41.61 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:12",
+    "Scan Time":"2026-08-14 17:53:22",
     "Symbol":"NSE:IPCALAB",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE571A01038",
@@ -450,7 +450,7 @@
     "Reason":"Hourly RSI 42.30 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:02",
+    "Scan Time":"2026-08-14 17:53:12",
     "Symbol":"NSE:GRANULES",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE101D01020",
@@ -475,7 +475,7 @@
     "Reason":"Hourly RSI 43.15 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:13",
+    "Scan Time":"2026-08-14 17:53:23",
     "Symbol":"NSE:J&KBANK",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE168A01041",
@@ -500,7 +500,7 @@
     "Reason":"Hourly RSI 43.66 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:36",
+    "Scan Time":"2026-08-14 17:52:44",
     "Symbol":"NSE:APARINDS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE372A01015",
@@ -525,7 +525,7 @@
     "Reason":"Hourly RSI 43.94 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:04",
+    "Scan Time":"2026-08-14 17:53:14",
     "Symbol":"NSE:HEROMOTOCO",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE158A01026",
@@ -550,7 +550,7 @@
     "Reason":"Hourly RSI 43.96 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:14",
+    "Scan Time":"2026-08-14 17:53:24",
     "Symbol":"NSE:JINDALSAW",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE324A01032",
@@ -575,7 +575,7 @@
     "Reason":"Hourly RSI 44.29 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:52",
+    "Scan Time":"2026-08-14 17:53:01",
     "Symbol":"NSE:CHENNPETRO",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE178A01016",
@@ -600,7 +600,7 @@
     "Reason":"Hourly RSI 44.33 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:35",
+    "Scan Time":"2026-08-14 17:53:47",
     "Symbol":"NSE:RKFORGE",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE399G01023",
@@ -625,7 +625,7 @@
     "Reason":"Hourly RSI 44.59 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:21",
+    "Scan Time":"2026-08-14 17:53:32",
     "Symbol":"NSE:MIDHANI",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE099Z01011",
@@ -650,7 +650,7 @@
     "Reason":"Hourly RSI 44.96 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:44",
+    "Scan Time":"2026-08-14 17:53:56",
     "Symbol":"NSE:TECHM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE669C01036",
@@ -675,7 +675,7 @@
     "Reason":"Hourly RSI 45.12 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:54",
+    "Scan Time":"2026-08-14 17:53:04",
     "Symbol":"NSE:CYIENTDLM",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE055S01018",
@@ -700,7 +700,7 @@
     "Reason":"Hourly RSI 45.39 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:55",
+    "Scan Time":"2026-08-14 17:53:05",
     "Symbol":"NSE:DATAPATTNS",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE0IX101010",
@@ -725,7 +725,7 @@
     "Reason":"Hourly RSI 45.94 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:27",
+    "Scan Time":"2026-08-14 17:52:36",
     "Symbol":"NSE:ABB",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE117A01022",
@@ -750,7 +750,7 @@
     "Reason":"Hourly RSI 46.00 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:19",
+    "Scan Time":"2026-08-14 17:53:30",
     "Symbol":"NSE:LTM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE214T01019",
@@ -775,7 +775,7 @@
     "Reason":"Hourly RSI 46.50 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:45",
+    "Scan Time":"2026-08-14 17:52:54",
     "Symbol":"NSE:BEML",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE258A01024",
@@ -800,7 +800,7 @@
     "Reason":"Hourly RSI 46.53 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:43",
+    "Scan Time":"2026-08-14 17:53:54",
     "Symbol":"NSE:SYRMA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE0DYJ01015",
@@ -825,7 +825,7 @@
     "Reason":"Hourly RSI 47.16 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:20",
+    "Scan Time":"2026-08-14 17:53:31",
     "Symbol":"NSE:M&M",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE101A01026",
@@ -850,7 +850,7 @@
     "Reason":"Hourly RSI 47.55 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:39",
+    "Scan Time":"2026-08-14 17:52:48",
     "Symbol":"NSE:ATHERENERG",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE0LEZ01016",
@@ -875,7 +875,7 @@
     "Reason":"Hourly RSI 47.88 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:36",
+    "Scan Time":"2026-08-14 17:53:48",
     "Symbol":"NSE:RRKABEL",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE777K01022",
@@ -900,7 +900,7 @@
     "Reason":"Hourly RSI 48.50 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:42",
+    "Scan Time":"2026-08-14 17:53:53",
     "Symbol":"NSE:SONATSOFTW",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE269A01021",
@@ -925,7 +925,7 @@
     "Reason":"Hourly RSI 49.06 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:58",
+    "Scan Time":"2026-08-14 17:53:08",
     "Symbol":"NSE:ENRIN",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE1NPP01017",
@@ -950,7 +950,7 @@
     "Reason":"Hourly RSI 49.09 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:03",
+    "Scan Time":"2026-08-14 17:53:13",
     "Symbol":"NSE:HCLTECH",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE860A01027",
@@ -975,7 +975,7 @@
     "Reason":"Hourly RSI 49.54 is 30-50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:15",
+    "Scan Time":"2026-08-14 17:53:25",
     "Symbol":"NSE:KIRLOSENG",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE146L01010",
@@ -1000,7 +1000,7 @@
     "Reason":"Hourly RSI 50.64 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:41",
+    "Scan Time":"2026-08-14 17:52:50",
     "Symbol":"NSE:BAJAJ-AUTO",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE917I01010",
@@ -1025,7 +1025,7 @@
     "Reason":"Hourly RSI 50.92 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:11",
+    "Scan Time":"2026-08-14 17:53:21",
     "Symbol":"NSE:INOXINDIA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE616N01034",
@@ -1050,7 +1050,7 @@
     "Reason":"Hourly RSI 50.93 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:24",
+    "Scan Time":"2026-08-14 17:53:35",
     "Symbol":"NSE:MTARTECH",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE864I01014",
@@ -1075,7 +1075,7 @@
     "Reason":"Hourly RSI 50.97 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:37",
+    "Scan Time":"2026-08-14 17:53:49",
     "Symbol":"NSE:SAILIFE",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE570L01029",
@@ -1100,7 +1100,7 @@
     "Reason":"Hourly RSI 51.69 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:52",
+    "Scan Time":"2026-08-14 17:53:02",
     "Symbol":"NSE:COFORGE",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE591G01025",
@@ -1125,7 +1125,7 @@
     "Reason":"Hourly RSI 51.74 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:42",
+    "Scan Time":"2026-08-14 17:52:51",
     "Symbol":"NSE:BALRAMCHIN",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE119A01028",
@@ -1150,7 +1150,7 @@
     "Reason":"Hourly RSI 51.92 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:56",
+    "Scan Time":"2026-08-14 17:53:06",
     "Symbol":"NSE:DIVISLAB",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE361B01024",
@@ -1175,7 +1175,7 @@
     "Reason":"Hourly RSI 52.77 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:26",
+    "Scan Time":"2026-08-14 17:53:37",
     "Symbol":"NSE:NETWEB",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE0NT901020",
@@ -1200,7 +1200,7 @@
     "Reason":"Hourly RSI 53.14 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:38",
+    "Scan Time":"2026-08-14 17:53:50",
     "Symbol":"NSE:SAREGAMA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE979A01025",
@@ -1225,7 +1225,7 @@
     "Reason":"Hourly RSI 53.41 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:29",
+    "Scan Time":"2026-08-14 17:52:37",
     "Symbol":"NSE:ACMESOLAR",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE622W01025",
@@ -1250,7 +1250,7 @@
     "Reason":"Hourly RSI 53.50 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:22",
+    "Scan Time":"2026-08-14 17:53:33",
     "Symbol":"NSE:MOTHERSON",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE775A01035",
@@ -1275,7 +1275,7 @@
     "Reason":"Hourly RSI 54.72 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:30",
+    "Scan Time":"2026-08-14 17:53:41",
     "Symbol":"NSE:PAYTM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE982J01020",
@@ -1300,7 +1300,7 @@
     "Reason":"Hourly RSI 54.98 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:25",
+    "Scan Time":"2026-08-14 17:53:36",
     "Symbol":"NSE:NAUKRI",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE663F01032",
@@ -1325,7 +1325,7 @@
     "Reason":"Hourly RSI 55.15 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:35",
+    "Scan Time":"2026-08-14 17:52:43",
     "Symbol":"NSE:ANANDRATHI",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE463V01026",
@@ -1350,7 +1350,7 @@
     "Reason":"Hourly RSI 55.57 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:55",
+    "Scan Time":"2026-08-14 17:54:04",
     "Symbol":"NSE:WOCKPHARMA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE049B01025",
@@ -1375,7 +1375,7 @@
     "Reason":"Hourly RSI 55.65 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:52",
+    "Scan Time":"2026-08-14 17:54:01",
     "Symbol":"NSE:VIJAYA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE043W01024",
@@ -1400,7 +1400,7 @@
     "Reason":"Hourly RSI 56.03 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:30",
+    "Scan Time":"2026-08-14 17:52:38",
     "Symbol":"NSE:ADANIENSOL",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE931S01010",
@@ -1425,7 +1425,7 @@
     "Reason":"Hourly RSI 56.37 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:57",
+    "Scan Time":"2026-08-14 17:53:07",
     "Symbol":"NSE:EICHERMOT",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE066A01021",
@@ -1450,7 +1450,7 @@
     "Reason":"Hourly RSI 56.63 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:05",
+    "Scan Time":"2026-08-14 17:53:15",
     "Symbol":"NSE:HFCL",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE548A01028",
@@ -1475,7 +1475,7 @@
     "Reason":"Hourly RSI 56.84 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:38",
+    "Scan Time":"2026-08-14 17:52:47",
     "Symbol":"NSE:ASTRAMICRO",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE386C01029",
@@ -1500,7 +1500,7 @@
     "Reason":"Hourly RSI 57.71 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:53",
+    "Scan Time":"2026-08-14 17:54:02",
     "Symbol":"NSE:WELCORP",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE191B01025",
@@ -1525,7 +1525,7 @@
     "Reason":"Hourly RSI 59.85 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:28",
+    "Scan Time":"2026-08-14 17:53:39",
     "Symbol":"NSE:OFSS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE881D01027",
@@ -1550,7 +1550,7 @@
     "Reason":"Hourly RSI 60.46 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:34",
+    "Scan Time":"2026-08-14 17:52:42",
     "Symbol":"NSE:ALIVUS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE03Q201024",
@@ -1575,7 +1575,7 @@
     "Reason":"Hourly RSI 60.69 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:09",
+    "Scan Time":"2026-08-14 17:53:19",
     "Symbol":"NSE:IFCI",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE039A01010",
@@ -1600,7 +1600,7 @@
     "Reason":"Hourly RSI 61.78 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:51",
+    "Scan Time":"2026-08-14 17:53:00",
     "Symbol":"NSE:CGPOWER",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE067A01029",
@@ -1625,7 +1625,7 @@
     "Reason":"Hourly RSI 62.00 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:23",
+    "Scan Time":"2026-08-14 17:53:34",
     "Symbol":"NSE:MPHASIS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE356A01018",
@@ -1650,7 +1650,7 @@
     "Reason":"Hourly RSI 62.76 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:33",
+    "Scan Time":"2026-08-14 17:53:45",
     "Symbol":"NSE:POWERINDIA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE07Y701011",
@@ -1675,7 +1675,7 @@
     "Reason":"Hourly RSI 63.50 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:31",
+    "Scan Time":"2026-08-14 17:53:42",
     "Symbol":"NSE:PERSISTENT",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE262H01021",
@@ -1700,7 +1700,7 @@
     "Reason":"Hourly RSI 64.30 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:20",
+    "Scan Time":"2026-08-14 17:53:32",
     "Symbol":"NSE:MAZDOCK",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE249Z01020",
@@ -1725,7 +1725,7 @@
     "Reason":"Hourly RSI 64.59 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:48",
+    "Scan Time":"2026-08-14 17:52:58",
     "Symbol":"NSE:BHEL",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE257A01026",
@@ -1750,9 +1750,9 @@
     "Reason":"Hourly RSI 65.24 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:27",
+    "Scan Time":"2026-08-14 17:52:35",
     "Symbol":"NSE:AARTIIND",
-    "Tag":"52 Week High",
+    "Tag":"my stock",
     "Instrument Key":"NSE_EQ|INE769A01020",
     "Current LTP":534.1,
     "Current Week RSI":66.18,
@@ -1775,7 +1775,7 @@
     "Reason":"Hourly RSI 65.47 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:00",
+    "Scan Time":"2026-08-14 17:53:10",
     "Symbol":"NSE:FINCABLES",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE235A01022",
@@ -1800,7 +1800,7 @@
     "Reason":"Hourly RSI 66.01 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:31",
+    "Scan Time":"2026-08-14 17:53:43",
     "Symbol":"NSE:POLICYBZR",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE417T01026",
@@ -1825,7 +1825,7 @@
     "Reason":"Hourly RSI 66.20 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:34",
+    "Scan Time":"2026-08-14 17:53:46",
     "Symbol":"NSE:RADICO",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE944F01028",
@@ -1850,7 +1850,7 @@
     "Reason":"Hourly RSI 67.13 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:02",
+    "Scan Time":"2026-08-14 17:53:12",
     "Symbol":"NSE:HAL",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE066F01020",
@@ -1875,7 +1875,7 @@
     "Reason":"Hourly RSI 67.25 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:56",
+    "Scan Time":"2026-08-14 17:54:05",
     "Symbol":"NSE:ZENTEC",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE251B01027",
@@ -1900,7 +1900,7 @@
     "Reason":"Hourly RSI 67.96 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:07",
+    "Scan Time":"2026-08-14 17:53:17",
     "Symbol":"NSE:HSCL",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE019C01026",
@@ -1925,7 +1925,7 @@
     "Reason":"Hourly RSI 68.63 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:40",
+    "Scan Time":"2026-08-14 17:53:51",
     "Symbol":"NSE:SOLARINDS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE343H01029",
@@ -1950,7 +1950,7 @@
     "Reason":"Hourly RSI 68.70 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:47",
+    "Scan Time":"2026-08-14 17:52:56",
     "Symbol":"NSE:BHARTIARTL",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE397D01024",
@@ -1975,7 +1975,7 @@
     "Reason":"Hourly RSI 70.00 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:27",
+    "Scan Time":"2026-08-14 17:53:38",
     "Symbol":"NSE:NEULANDLAB",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE794A01010",
@@ -2000,7 +2000,7 @@
     "Reason":"Hourly RSI 70.80 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:01",
+    "Scan Time":"2026-08-14 17:53:11",
     "Symbol":"NSE:GLAND",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE068V01023",
@@ -2025,7 +2025,7 @@
     "Reason":"Hourly RSI 71.61 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:08",
+    "Scan Time":"2026-08-14 17:53:18",
     "Symbol":"NSE:IDEA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE669E01016",
@@ -2050,7 +2050,7 @@
     "Reason":"Hourly RSI 72.73 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:48",
+    "Scan Time":"2026-08-14 17:52:57",
     "Symbol":"NSE:BHARTIHEXA",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE343G01021",
@@ -2075,7 +2075,7 @@
     "Reason":"Hourly RSI 72.82 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:50",
+    "Scan Time":"2026-08-14 17:52:59",
     "Symbol":"NSE:BOSCHLTD",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE323A01026",
@@ -2100,7 +2100,7 @@
     "Reason":"Hourly RSI 72.97 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:32",
+    "Scan Time":"2026-08-14 17:52:40",
     "Symbol":"NSE:AJANTPHARM",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE031B01049",
@@ -2125,7 +2125,7 @@
     "Reason":"Hourly RSI 73.41 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:06",
+    "Scan Time":"2026-08-14 17:53:16",
     "Symbol":"NSE:HONASA",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE0J5401028",
@@ -2150,7 +2150,7 @@
     "Reason":"Hourly RSI 75.35 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:43",
+    "Scan Time":"2026-08-14 17:52:53",
     "Symbol":"NSE:BDL",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE171Z01026",
@@ -2175,7 +2175,7 @@
     "Reason":"Hourly RSI 75.77 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:47",
+    "Scan Time":"2026-08-14 17:53:59",
     "Symbol":"NSE:UNIMECH",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE0U3I01011",
@@ -2200,7 +2200,7 @@
     "Reason":"Hourly RSI 78.73 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:29",
+    "Scan Time":"2026-08-14 17:53:40",
     "Symbol":"NSE:PARAS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE045601023",
@@ -2225,7 +2225,7 @@
     "Reason":"Hourly RSI 80.54 >= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:53",
+    "Scan Time":"2026-08-14 17:53:03",
     "Symbol":"NSE:COHANCE",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE03QK01018",
@@ -2250,7 +2250,7 @@
     "Reason":"Weekly RSI 48.61 <= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:44",
+    "Scan Time":"2026-08-14 17:53:55",
     "Symbol":"NSE:TCS",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE467B01029",
@@ -2275,7 +2275,7 @@
     "Reason":"Weekly RSI 46.40 <= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:10",
+    "Scan Time":"2026-08-14 17:53:20",
     "Symbol":"NSE:INFY",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE009A01021",
@@ -2300,7 +2300,7 @@
     "Reason":"Weekly RSI 46.34 <= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:31:54",
+    "Scan Time":"2026-08-14 17:54:03",
     "Symbol":"NSE:WIPRO",
     "Tag":"Volume shockers",
     "Instrument Key":"NSE_EQ|INE075A01022",
@@ -2325,7 +2325,7 @@
     "Reason":"Weekly RSI 40.14 <= 50"
   },
   {
-    "Scan Time":"2026-08-14 17:30:44",
+    "Scan Time":"2026-08-14 17:52:53",
     "Symbol":"NSE:BEL",
     "Tag":"52 Week High",
     "Instrument Key":"NSE_EQ|INE263A01024",
