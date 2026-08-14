@@ -181,17 +181,6 @@ tbody tr:hover{
   font-weight:800;
 }
 
-.symbol-link{
-  color:var(--cyan);
-  font-weight:800;
-  text-decoration:none;
-}
-
-.symbol-link:hover{
-  text-decoration:underline;
-  opacity:.85;
-}
-
 .rsi-good{
   color:var(--green);
   font-weight:700;
@@ -219,6 +208,18 @@ tbody tr:hover{
 .delta-down{
   color:var(--red);
   font-weight:700;
+}
+
+.tag-badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:800;
+  background:rgba(94,231,247,.10);
+  color:var(--cyan);
+  border:1px solid rgba(94,231,247,.22);
+  white-space:nowrap;
 }
 
 .badge{
@@ -300,7 +301,7 @@ tbody tr:hover{
     <div>
       <h1>📊 RSI Scanner Dashboard</h1>
       <div class="subtitle">
-        Weekly RSI &gt; 50 + Hourly RSI Oversold
+        Weekly RSI &gt; 50 + Hourly RSI &lt; 30 + Completed 15m RSI Reversal
       </div>
     </div>
 
@@ -367,6 +368,7 @@ tbody tr:hover{
       <thead>
         <tr>
           <th>Symbol</th>
+          <th>Tag</th>
           <th>LTP</th>
           <th>Weekly RSI</th>
           <th>Weekly Δ</th>
@@ -385,7 +387,7 @@ tbody tr:hover{
         </tr>
       </thead>
       <tbody id="rows">
-        <tr><td colspan="16" class="empty">Loading scanner data...</td></tr>
+        <tr><td colspan="17" class="empty">Loading scanner data...</td></tr>
       </tbody>
     </table>
   </div>
@@ -505,17 +507,6 @@ function sortData(data){
   });
 }
 
-function chartinkUrl(symbol){
-  const cleanSymbol = String(symbol || "")
-    .replace(/^NSE:/i, "")
-    .replace(/\\/g, "")
-    .trim();
-
-  if (!cleanSymbol) return "#";
-
-  return `https://chartink.com/stocks/${encodeURIComponent(cleanSymbol)}.html`;
-}
-
 function render(){
   const search = document.getElementById("search").value.trim().toUpperCase();
   const category = document.getElementById("category").value;
@@ -524,8 +515,15 @@ function render(){
     const symbol = String(x.Symbol || "").toUpperCase();
     const cat = String(x.Category || "").toUpperCase();
 
-    const matchesSearch = !search || symbol.includes(search);
-    const matchesCategory = category === "ALL" || cat === category;
+    const tag = String(x.Tag || "").toUpperCase();
+
+    const matchesSearch =
+      !search ||
+      symbol.includes(search) ||
+      tag.includes(search);
+
+    const matchesCategory =
+      category === "ALL" || cat === category;
 
     return matchesSearch && matchesCategory;
   });
@@ -536,7 +534,7 @@ function render(){
 
   if (!data.length){
     rows.innerHTML =
-      '<tr><td colspan="16" class="empty">No stocks match the selected filter.</td></tr>';
+      '<tr><td colspan="17" class="empty">No stocks match the selected filter.</td></tr>';
     return;
   }
 
@@ -553,29 +551,12 @@ function render(){
 
     return `
       <tr>
-        <td class="symbol">
-          ${
-            x.Symbol
-              ? (() => {
-                  const cleanSymbol = String(x.Symbol)
-                    .replace(/^NSE:/i, "")
-                    .replace(/\\/g, "")
-                    .trim();
+        <td class="symbol">${x.Symbol || "--"}</td>
 
-                  return `
-                    <a
-                      href="${chartinkUrl(x.Symbol)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="symbol-link"
-                      title="Open ${cleanSymbol} on Chartink"
-                    >
-                      ${cleanSymbol}
-                    </a>
-                  `;
-                })()
-              : "--"
-          }
+        <td>
+          <span class="tag-badge">
+            ${x.Tag || "--"}
+          </span>
         </td>
 
         <td>₹${fmt(x["Current LTP"])}</td>
@@ -685,7 +666,7 @@ async function loadData(){
       "Unable to load latest_results.json";
 
     document.getElementById("rows").innerHTML =
-      `<tr><td colspan="16" class="empty">
+      `<tr><td colspan="17" class="empty">
         Unable to load scanner data.<br>
         ${error.message}
       </td></tr>`;
