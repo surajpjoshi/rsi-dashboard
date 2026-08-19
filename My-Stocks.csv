@@ -1,5 +1,6 @@
 Symbol,Tag
-NSE:LGEINDIA,Volume Shocker
+NSE:DHOOTTRANS,IPO
+NSE:LGEINDIA,IPO
 NSE:ASTRAL,Volume Shocker
 NSE:FINCABLES,Volume Shocker
 NSE:GODREJAGRO,Volume Shocker
@@ -16,10 +17,8 @@ NSE:AJANTPHARM,Dashboard
 NSE:AKUMS,Dashboard
 NSE:ALIVUS,Dashboard
 NSE:ANANDRATHI,Dashboard
-NSE:ANANTRAJ,Dashboard
 NSE:APARINDS,Dashboard
 NSE:ASHOKLEY,Dashboard
-NSE:ASTERDM,Dashboard
 NSE:ASTRAMICRO,Dashboard
 NSE:ATHERENERG,Dashboard
 NSE:AUROPHARMA,Dashboard
@@ -30,24 +29,24 @@ NSE:BEML,Dashboard
 NSE:BHARATFORG,Dashboard
 NSE:BHEL,Dashboard
 NSE:BOSCHLTD,Dashboard
-NSE:BRIGADE,Dashboard
 NSE:CAPLIPOINT,Dashboard
-NSE:CGPOWER,Dashboard
 NSE:CHENNPETRO,Dashboard
 NSE:COHANCE,Dashboard
+NSE:CRAFTSMAN,Dashboard
 NSE:CYIENTDLM,Dashboard
 NSE:DATAPATTNS,Dashboard
+NSE:DBCORP,Dashboard
 NSE:DIVISLAB,Dashboard
-NSE:DLF,Dashboard
 NSE:DYNAMATECH,Dashboard
 NSE:EICHERMOT,Dashboard
 NSE:ENRIN,Dashboard
 NSE:EXIDEIND,Dashboard
 NSE:FINCABLES,Dashboard
 NSE:GLAND,Dashboard
-NSE:GODREJPROP,Dashboard
 NSE:GRANULES,Dashboard
+NSE:GRSE,Dashboard
 NSE:HAL,Dashboard
+NSE:HATHWAY,Dashboard
 NSE:HEROMOTOCO,Dashboard
 NSE:HFCL,Dashboard
 NSE:HONASA,Dashboard
@@ -61,31 +60,31 @@ NSE:KIRLOSENG,Dashboard
 NSE:LALPATHLAB,Dashboard
 NSE:LAURUSLABS,Dashboard
 NSE:LLOYDSME,Dashboard
-NSE:LODHA,Dashboard
 NSE:M&M,Dashboard
-NSE:MAZDOCK,Dashboard
 NSE:MIDHANI,Dashboard
 NSE:MOTHERSON,Dashboard
 NSE:MTARTECH,Dashboard
+NSE:NAZARA,Dashboard
 NSE:NETWEB,Dashboard
+NSE:NETWORK18,Dashboard
 NSE:NEULANDLAB,Dashboard
-NSE:OBEROIRLTY,Dashboard
 NSE:OFSS,Dashboard
 NSE:PARAS,Dashboard
-NSE:PHOENIXLTD,Dashboard
+NSE:PFOCUS,Dashboard
 NSE:POLYMED,Dashboard
 NSE:POWERINDIA,Dashboard
-NSE:PRESTIGE,Dashboard
+NSE:PPLPHARMA,Dashboard
+NSE:PVRINOX,Dashboard
 NSE:RADICO,Dashboard
 NSE:RKFORGE,Dashboard
 NSE:RRKABEL,Dashboard
 NSE:SAILIFE,Dashboard
 NSE:SAREGAMA,Dashboard
-NSE:SIGNATURE,Dashboard
-NSE:SOBHA,Dashboard
 NSE:SOLARINDS,Dashboard
 NSE:SONACOMS,Dashboard
+NSE:SUNTV,Dashboard
 NSE:SYRMA,Dashboard
+NSE:TIPSMUSIC,Dashboard
 NSE:TORNTPHARM,Dashboard
 NSE:TVSMOTOR,Dashboard
 NSE:UNIMECH,Dashboard
@@ -93,5 +92,23 @@ NSE:UNOMINDA,Dashboard
 NSE:VIJAYA,Dashboard
 NSE:WELCORP,Dashboard
 NSE:WOCKPHARMA,Dashboard
-NSE:ZENTEC,Dashboard
-NSE:ZYDUSLIFE,
+NSE:ZEEL,
+NSE:ZENTEC,
+PARAS,🔥🔥🔥
+KALYANKJIL,🔥🔥🔥
+CYIENTDLM,🔥🔥🔥
+UNIMECH,🔥🔥
+SYRMA,🔥🔥
+HFCL,🔥🔥
+WELCORP,🔥
+TBOTEK,🔥
+NAUKRI,🟢
+AKUMS,🟢
+DYNAMATECH,
+ZENTEC,
+PAYTM,
+TIINDIA,Volume Shocker
+GLAXO,Volume Shocker
+ACE,Volume Shocker
+HEG,52weekHigh
+WELSPUNLIV,52weekHigh
