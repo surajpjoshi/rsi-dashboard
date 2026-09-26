@@ -2,36 +2,36 @@ Symbol,Tag
 CPPLUS,IPO
 NSE:DHOOTTRANS,IPO
 NSE:LGEINDIA,IPO
-NSE:WOCKPHARMA,1M-niftyindiadefence-Top-1
-NSE:LAURUSLABS,1M-niftyindiadefence-Top-2
-NSE:DIVISLAB,1M-niftyindiadefence-Top-3
-NSE:AUROPHARMA,1M-niftyindiadefence-Top-4
-NSE:MANKIND,1M-niftyindiadefence-Top-5
-NSE:JUBLPHARMA,1M-niftymetal-Top-1
-NSE:CAPLIPOINT,1M-niftymetal-Top-2
-NSE:SAILIFE,1M-niftymetal-Top-3
+NSE:WOCKPHARMA,1M-niftymetal-Top-1
+NSE:DIVISLAB,1M-niftymetal-Top-2
+NSE:AUROPHARMA,1M-niftymetal-Top-3
 NSE:LAURUSLABS,1M-niftymetal-Top-4
-NSE:DIVISLAB,1M-niftymetal-Top-5
-NSE:CYIENTDLM,3M-niftyindiadefence-Top-1
-NSE:UNIMECH,3M-niftyindiadefence-Top-2
-NSE:DYNAMATECH,3M-niftyindiadefence-Top-3
-NSE:BEML,3M-niftyindiadefence-Top-4
-NSE:PARAS,3M-niftyindiadefence-Top-5
+NSE:ABBOTINDIA,1M-niftymetal-Top-5
+NSE:JUBLPHARMA,1M-niftyindiadefence-Top-1
+NSE:CAPLIPOINT,1M-niftyindiadefence-Top-2
+NSE:INDGN,1M-niftyindiadefence-Top-3
+NSE:SAILIFE,1M-niftyindiadefence-Top-4
+NSE:DIVISLAB,1M-niftyindiadefence-Top-5
 NSE:WELCORP,3M-niftymetal-Top-1
 NSE:APLAPOLLO,3M-niftymetal-Top-2
 NSE:HINDZINC,3M-niftymetal-Top-3
 NSE:JSL,3M-niftymetal-Top-4
 NSE:JINDALSTEL,3M-niftymetal-Top-5
+NSE:CYIENTDLM,3M-niftyindiadefence-Top-1
+NSE:UNIMECH,3M-niftyindiadefence-Top-2
+NSE:DYNAMATECH,3M-niftyindiadefence-Top-3
+NSE:BEML,3M-niftyindiadefence-Top-4
+NSE:PARAS,3M-niftyindiadefence-Top-5
 NSE:CYIENTDLM,6M-niftyindiadefence-Top-1
 NSE:UNIMECH,6M-niftyindiadefence-Top-2
 NSE:PARAS,6M-niftyindiadefence-Top-3
 NSE:MTARTECH,6M-niftyindiadefence-Top-4
 NSE:ASTRAMICRO,6M-niftyindiadefence-Top-5
-NSE:CARTRADE,6M-Nifty India Internet Index-Top-1
-NSE:PAYTM,6M-Nifty India Internet Index-Top-2
-NSE:STYL,6M-Nifty India Internet Index-Top-3
-NSE:MEESHO,6M-Nifty India Internet Index-Top-4
-NSE:MOTILALOFS,6M-Nifty India Internet Index-Top-5
+NSE:LODHA,6M-niftyrealty-Top-1
+NSE:ANANTRAJ,6M-niftyrealty-Top-2
+NSE:DLF,6M-niftyrealty-Top-3
+NSE:OBEROIRLTY,6M-niftyrealty-Top-4
+NSE:PRESTIGE,6M-niftyrealty-Top-5
 NSE:MTARTECH,YTD-niftyindiadefence-Top-1
 NSE:CYIENTDLM,YTD-niftyindiadefence-Top-2
 NSE:PARAS,YTD-niftyindiadefence-Top-3
@@ -46,22 +46,22 @@ NSE:WELCORP,Nifty Smallcap 250-TOP-1
 NSE:PFOCUS,Nifty Smallcap 250-TOP-2
 NSE:REDINGTON,Nifty Smallcap 250-TOP-3
 NSE:ECLERX,Nifty Smallcap 250-TOP-4
-NSE:ATHERENERG,Nifty Smallcap 250-TOP-5
-NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-6
+NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-5
+NSE:ATHERENERG,Nifty Smallcap 250-TOP-6
 NSE:JYOTICNC,Nifty Smallcap 250-TOP-7
 NSE:GRAPHITE,Nifty Smallcap 250-TOP-8
 NSE:SONACOMS,Nifty Smallcap 250-TOP-9
 NSE:PVRINOX,Nifty Smallcap 250-TOP-10
 NSE:WELCORP,Nifty-500-Top-1
-NSE:PAYTM,Nifty-500-Top-2
-NSE:KALYANKJIL,Nifty-500-Top-3
-NSE:REDINGTON,Nifty-500-Top-4
+NSE:KALYANKJIL,Nifty-500-Top-2
+NSE:REDINGTON,Nifty-500-Top-3
+NSE:PAYTM,Nifty-500-Top-4
 NSE:DIVISLAB,Nifty-500-Top-5
 NSE:ECLERX,Nifty-500-Top-6
-NSE:ATHERENERG,Nifty-500-Top-7
-NSE:WELSPUNLIV,Nifty-500-Top-8
+NSE:WELSPUNLIV,Nifty-500-Top-7
+NSE:ATHERENERG,Nifty-500-Top-8
 NSE:JYOTICNC,Nifty-500-Top-9
-NSE:LAURUSLABS,Nifty-500-Top-10
+NSE:GRAPHITE,Nifty-500-Top-10
 E2E,
 SUDEEPPHRM,
 AEROFLEX,
