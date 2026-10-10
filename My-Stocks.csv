@@ -4,14 +4,14 @@ NSE:DHOOTTRANS,IPO
 NSE:LGEINDIA,IPO
 NSE:VBL,1M-niftyindiadefence-Top-1
 NSE:PATANJALI,1M-niftyindiadefence-Top-2
-NSE:DABUR,1M-niftyindiadefence-Top-3
-NSE:RADICO,1M-niftyindiadefence-Top-4
-NSE:GODREJCP,1M-niftyindiadefence-Top-5
+NSE:ITC,1M-niftyindiadefence-Top-3
+NSE:DABUR,1M-niftyindiadefence-Top-4
+NSE:RADICO,1M-niftyindiadefence-Top-5
 NSE:SUNTV,1M-niftypharma-Top-1
 NSE:PVRINOX,1M-niftypharma-Top-2
 NSE:NAZARA,1M-niftypharma-Top-3
-NSE:SAREGAMA,1M-niftypharma-Top-4
-NSE:TIPSMUSIC,1M-niftypharma-Top-5
+NSE:TIPSMUSIC,1M-niftypharma-Top-4
+NSE:HATHWAY,1M-niftypharma-Top-5
 NSE:CYIENTDLM,3M-niftyindiadefence-Top-1
 NSE:UNIMECH,3M-niftyindiadefence-Top-2
 NSE:DYNAMATECH,3M-niftyindiadefence-Top-3
@@ -21,11 +21,11 @@ NSE:DIVISLAB,3M-niftypharma-Top-1
 NSE:LAURUSLABS,3M-niftypharma-Top-2
 NSE:GLAND,3M-niftypharma-Top-3
 NSE:PPLPHARMA,3M-niftypharma-Top-4
-NSE:WOCKPHARMA,3M-niftypharma-Top-5
+NSE:AUROPHARMA,3M-niftypharma-Top-5
 NSE:CYIENTDLM,6M-niftyindiadefence-Top-1
 NSE:UNIMECH,6M-niftyindiadefence-Top-2
-NSE:MTARTECH,6M-niftyindiadefence-Top-3
-NSE:PARAS,6M-niftyindiadefence-Top-4
+NSE:PARAS,6M-niftyindiadefence-Top-3
+NSE:MTARTECH,6M-niftyindiadefence-Top-4
 NSE:ASTRAMICRO,6M-niftyindiadefence-Top-5
 NSE:LAURUSLABS,6M-niftypharma-Top-1
 NSE:GLAND,6M-niftypharma-Top-2
@@ -40,28 +40,28 @@ NSE:ASTRAMICRO,YTD-niftyindiadefence-Top-5
 NSE:LAURUSLABS,YTD-niftypharma-Top-1
 NSE:GLAND,YTD-niftypharma-Top-2
 NSE:DIVISLAB,YTD-niftypharma-Top-3
-NSE:WOCKPHARMA,YTD-niftypharma-Top-4
-NSE:AUROPHARMA,YTD-niftypharma-Top-5
+NSE:AUROPHARMA,YTD-niftypharma-Top-4
+NSE:WOCKPHARMA,YTD-niftypharma-Top-5
 NSE:WELCORP,Nifty Smallcap 250-TOP-1
 NSE:PTCIL,Nifty Smallcap 250-TOP-2
 NSE:REDINGTON,Nifty Smallcap 250-TOP-3
-NSE:FINCABLES,Nifty Smallcap 250-TOP-4
-NSE:CHENNPETRO,Nifty Smallcap 250-TOP-5
-NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-6
-NSE:JYOTICNC,Nifty Smallcap 250-TOP-7
-NSE:PVRINOX,Nifty Smallcap 250-TOP-8
-NSE:GRAPHITE,Nifty Smallcap 250-TOP-9
-NSE:GLAND,Nifty Smallcap 250-TOP-10
+NSE:CYIENT,Nifty Smallcap 250-TOP-4
+NSE:FINCABLES,Nifty Smallcap 250-TOP-5
+NSE:PVRINOX,Nifty Smallcap 250-TOP-6
+NSE:GRAPHITE,Nifty Smallcap 250-TOP-7
+NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-8
+NSE:CHENNPETRO,Nifty Smallcap 250-TOP-9
+NSE:JYOTICNC,Nifty Smallcap 250-TOP-10
 NSE:WELCORP,Nifty-500-Top-1
 NSE:PTCIL,Nifty-500-Top-2
-NSE:REDINGTON,Nifty-500-Top-3
-NSE:DIVISLAB,Nifty-500-Top-4
-NSE:FINCABLES,Nifty-500-Top-5
-NSE:CHENNPETRO,Nifty-500-Top-6
-NSE:WELSPUNLIV,Nifty-500-Top-7
-NSE:JYOTICNC,Nifty-500-Top-8
-NSE:LAURUSLABS,Nifty-500-Top-9
-NSE:APARINDS,Nifty-500-Top-10
+NSE:DIVISLAB,Nifty-500-Top-3
+NSE:REDINGTON,Nifty-500-Top-4
+NSE:CYIENT,Nifty-500-Top-5
+NSE:FINCABLES,Nifty-500-Top-6
+NSE:LAURUSLABS,Nifty-500-Top-7
+NSE:PVRINOX,Nifty-500-Top-8
+NSE:APARINDS,Nifty-500-Top-9
+NSE:GRAPHITE,Nifty-500-Top-10
 E2E,
 SUDEEPPHRM,
 AEROFLEX,
