@@ -5,18 +5,18 @@ NSE:LGEINDIA,IPO
 NSE:TCS,1M-niftyit-Top-1
 NSE:TECHM,1M-niftyit-Top-2
 NSE:WIPRO,1M-niftyit-Top-3
-NSE:HCLTECH,1M-niftyit-Top-4
-NSE:INFY,1M-niftyit-Top-5
+NSE:INFY,1M-niftyit-Top-4
+NSE:MPHASIS,1M-niftyit-Top-5
 NSE:HFCL,1M-niftyindiadefence-Top-1
 NSE:TATAELXSI,1M-niftyindiadefence-Top-2
 NSE:ZENSARTECH,1M-niftyindiadefence-Top-3
-NSE:BSOFT,1M-niftyindiadefence-Top-4
+NSE:HEXT,1M-niftyindiadefence-Top-4
 NSE:LTTS,1M-niftyindiadefence-Top-5
 NSE:COFORGE,3M-niftyit-Top-1
 NSE:TECHM,3M-niftyit-Top-2
 NSE:HCLTECH,3M-niftyit-Top-3
-NSE:PERSISTENT,3M-niftyit-Top-4
-NSE:TCS,3M-niftyit-Top-5
+NSE:TCS,3M-niftyit-Top-4
+NSE:PERSISTENT,3M-niftyit-Top-5
 NSE:CYIENTDLM,3M-niftyindiadefence-Top-1
 NSE:UNIMECH,3M-niftyindiadefence-Top-2
 NSE:DYNAMATECH,3M-niftyindiadefence-Top-3
@@ -47,21 +47,21 @@ NSE:REDINGTON,Nifty Smallcap 250-TOP-2
 NSE:CYIENT,Nifty Smallcap 250-TOP-3
 NSE:PVRINOX,Nifty Smallcap 250-TOP-4
 NSE:PTCIL,Nifty Smallcap 250-TOP-5
-NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-6
-NSE:FINCABLES,Nifty Smallcap 250-TOP-7
+NSE:FINCABLES,Nifty Smallcap 250-TOP-6
+NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-7
 NSE:SUNTV,Nifty Smallcap 250-TOP-8
-NSE:JYOTICNC,Nifty Smallcap 250-TOP-9
-NSE:GLAND,Nifty Smallcap 250-TOP-10
+NSE:THELEELA,Nifty Smallcap 250-TOP-9
+NSE:JYOTICNC,Nifty Smallcap 250-TOP-10
 NSE:WELCORP,Nifty-500-Top-1
 NSE:REDINGTON,Nifty-500-Top-2
 NSE:CYIENT,Nifty-500-Top-3
 NSE:PVRINOX,Nifty-500-Top-4
 NSE:PTCIL,Nifty-500-Top-5
-NSE:WELSPUNLIV,Nifty-500-Top-6
-NSE:FINCABLES,Nifty-500-Top-7
-NSE:LAURUSLABS,Nifty-500-Top-8
-NSE:SUNTV,Nifty-500-Top-9
-NSE:COFORGE,Nifty-500-Top-10
+NSE:FINCABLES,Nifty-500-Top-6
+NSE:WELSPUNLIV,Nifty-500-Top-7
+NSE:COFORGE,Nifty-500-Top-8
+NSE:PAYTM,Nifty-500-Top-9
+NSE:LAURUSLABS,Nifty-500-Top-10
 E2E,
 SUDEEPPHRM,
 AEROFLEX,
