@@ -8,10 +8,10 @@ NSE:TCS,1M-niftyit-Top-3
 NSE:TECHM,1M-niftyit-Top-4
 NSE:INFY,1M-niftyit-Top-5
 NSE:LTTS,1M-niftypharma-Top-1
-NSE:TATAELXSI,1M-niftypharma-Top-2
-NSE:BHARTIHEXA,1M-niftypharma-Top-3
-NSE:ZENSARTECH,1M-niftypharma-Top-4
-NSE:BSOFT,1M-niftypharma-Top-5
+NSE:BHARTIHEXA,1M-niftypharma-Top-2
+NSE:WIPRO,1M-niftypharma-Top-3
+NSE:HCLTECH,1M-niftypharma-Top-4
+NSE:TATAELXSI,1M-niftypharma-Top-5
 NSE:COFORGE,3M-niftyit-Top-1
 NSE:PERSISTENT,3M-niftyit-Top-2
 NSE:TECHM,3M-niftyit-Top-3
@@ -20,8 +20,8 @@ NSE:WIPRO,3M-niftyit-Top-5
 NSE:LAURUSLABS,3M-niftypharma-Top-1
 NSE:GLAND,3M-niftypharma-Top-2
 NSE:DIVISLAB,3M-niftypharma-Top-3
-NSE:PPLPHARMA,3M-niftypharma-Top-4
-NSE:DRREDDY,3M-niftypharma-Top-5
+NSE:DRREDDY,3M-niftypharma-Top-4
+NSE:IPCALAB,3M-niftypharma-Top-5
 NSE:LAURUSLABS,6M-niftypharma-Top-1
 NSE:GLAND,6M-niftypharma-Top-2
 NSE:DIVISLAB,6M-niftypharma-Top-3
@@ -29,38 +29,38 @@ NSE:ZYDUSLIFE,6M-niftypharma-Top-4
 NSE:PPLPHARMA,6M-niftypharma-Top-5
 NSE:COFORGE,6M-niftyit-Top-1
 NSE:TECHM,6M-niftyit-Top-2
-NSE:PERSISTENT,6M-niftyit-Top-3
-NSE:HCLTECH,6M-niftyit-Top-4
+NSE:HCLTECH,6M-niftyit-Top-3
+NSE:PERSISTENT,6M-niftyit-Top-4
 NSE:MPHASIS,6M-niftyit-Top-5
 NSE:MTARTECH,YTD-niftyindiadefence-Top-1
 NSE:CYIENTDLM,YTD-niftyindiadefence-Top-2
-NSE:PARAS,YTD-niftyindiadefence-Top-3
-NSE:UNIMECH,YTD-niftyindiadefence-Top-4
+NSE:UNIMECH,YTD-niftyindiadefence-Top-3
+NSE:PARAS,YTD-niftyindiadefence-Top-4
 NSE:SOLARINDS,YTD-niftyindiadefence-Top-5
 NSE:LAURUSLABS,YTD-niftypharma-Top-1
 NSE:GLAND,YTD-niftypharma-Top-2
 NSE:DIVISLAB,YTD-niftypharma-Top-3
 NSE:AUROPHARMA,YTD-niftypharma-Top-4
-NSE:PPLPHARMA,YTD-niftypharma-Top-5
+NSE:IPCALAB,YTD-niftypharma-Top-5
 NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-1
-NSE:PTCIL,Nifty Smallcap 250-TOP-2
-NSE:THELEELA,Nifty Smallcap 250-TOP-3
-NSE:CYIENT,Nifty Smallcap 250-TOP-4
-NSE:PVRINOX,Nifty Smallcap 250-TOP-5
+NSE:CYIENT,Nifty Smallcap 250-TOP-2
+NSE:PVRINOX,Nifty Smallcap 250-TOP-3
+NSE:PTCIL,Nifty Smallcap 250-TOP-4
+NSE:THELEELA,Nifty Smallcap 250-TOP-5
 NSE:WELCORP,Nifty Smallcap 250-TOP-6
-NSE:BEML,Nifty Smallcap 250-TOP-7
+NSE:ATHERENERG,Nifty Smallcap 250-TOP-7
 NSE:GLAND,Nifty Smallcap 250-TOP-8
-NSE:ATHERENERG,Nifty Smallcap 250-TOP-9
-NSE:SUNTV,Nifty Smallcap 250-TOP-10
+NSE:SUNTV,Nifty Smallcap 250-TOP-9
+NSE:SHYAMMETL,Nifty Smallcap 250-TOP-10
 NSE:WELSPUNLIV,Nifty-500-Top-1
-NSE:PTCIL,Nifty-500-Top-2
-NSE:THELEELA,Nifty-500-Top-3
-NSE:CYIENT,Nifty-500-Top-4
-NSE:PVRINOX,Nifty-500-Top-5
-NSE:WELCORP,Nifty-500-Top-6
+NSE:CYIENT,Nifty-500-Top-2
+NSE:MCX,Nifty-500-Top-3
+NSE:PVRINOX,Nifty-500-Top-4
+NSE:PTCIL,Nifty-500-Top-5
+NSE:THELEELA,Nifty-500-Top-6
 NSE:LAURUSLABS,Nifty-500-Top-7
-NSE:MCX,Nifty-500-Top-8
-NSE:BEML,Nifty-500-Top-9
+NSE:WELCORP,Nifty-500-Top-8
+NSE:ATHERENERG,Nifty-500-Top-9
 NSE:GLAND,Nifty-500-Top-10
 E2E,
 SUDEEPPHRM,
