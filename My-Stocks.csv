@@ -7,21 +7,21 @@ NSE:TECHM,1M-niftypharma-Top-2
 NSE:HCLTECH,1M-niftypharma-Top-3
 NSE:TCS,1M-niftypharma-Top-4
 NSE:INFY,1M-niftypharma-Top-5
-NSE:UNOMINDA,1M-niftymedia-Top-1
-NSE:BOSCHLTD,1M-niftymedia-Top-2
-NSE:ASHOKLEY,1M-niftymedia-Top-3
-NSE:TVSMOTOR,1M-niftymedia-Top-4
-NSE:SONACOMS,1M-niftymedia-Top-5
+NSE:WIPRO,1M-niftyit-Top-1
+NSE:TECHM,1M-niftyit-Top-2
+NSE:HCLTECH,1M-niftyit-Top-3
+NSE:TCS,1M-niftyit-Top-4
+NSE:M&M,1M-niftyit-Top-5
 NSE:LAURUSLABS,3M-niftypharma-Top-1
 NSE:DIVISLAB,3M-niftypharma-Top-2
 NSE:GLAND,3M-niftypharma-Top-3
 NSE:DRREDDY,3M-niftypharma-Top-4
-NSE:IPCALAB,3M-niftypharma-Top-5
-NSE:PVRINOX,3M-niftymedia-Top-1
-NSE:SUNTV,3M-niftymedia-Top-2
-NSE:SAREGAMA,3M-niftymedia-Top-3
-NSE:NAZARA,3M-niftymedia-Top-4
-NSE:TIPSMUSIC,3M-niftymedia-Top-5
+NSE:GLENMARK,3M-niftypharma-Top-5
+NSE:COFORGE,3M-niftyit-Top-1
+NSE:TECHM,3M-niftyit-Top-2
+NSE:PERSISTENT,3M-niftyit-Top-3
+NSE:WIPRO,3M-niftyit-Top-4
+NSE:HCLTECH,3M-niftyit-Top-5
 NSE:LAURUSLABS,6M-niftypharma-Top-1
 NSE:GLAND,6M-niftypharma-Top-2
 NSE:DIVISLAB,6M-niftypharma-Top-3
@@ -29,8 +29,8 @@ NSE:PPLPHARMA,6M-niftypharma-Top-4
 NSE:IPCALAB,6M-niftypharma-Top-5
 NSE:COFORGE,6M-niftyit-Top-1
 NSE:TECHM,6M-niftyit-Top-2
-NSE:PERSISTENT,6M-niftyit-Top-3
-NSE:HCLTECH,6M-niftyit-Top-4
+NSE:HCLTECH,6M-niftyit-Top-3
+NSE:PERSISTENT,6M-niftyit-Top-4
 NSE:MPHASIS,6M-niftyit-Top-5
 NSE:MTARTECH,YTD-niftyindiadefence-Top-1
 NSE:UNIMECH,YTD-niftyindiadefence-Top-2
@@ -46,19 +46,19 @@ NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-1
 NSE:PVRINOX,Nifty Smallcap 250-TOP-2
 NSE:THELEELA,Nifty Smallcap 250-TOP-3
 NSE:CYIENT,Nifty Smallcap 250-TOP-4
-NSE:JYOTICNC,Nifty Smallcap 250-TOP-5
-NSE:WELCORP,Nifty Smallcap 250-TOP-6
-NSE:SHYAMMETL,Nifty Smallcap 250-TOP-7
-NSE:HEGAM,Nifty Smallcap 250-TOP-8
-NSE:PTCIL,Nifty Smallcap 250-TOP-9
-NSE:HBLENGINE,Nifty Smallcap 250-TOP-10
+NSE:SHYAMMETL,Nifty Smallcap 250-TOP-5
+NSE:HEGAM,Nifty Smallcap 250-TOP-6
+NSE:JYOTICNC,Nifty Smallcap 250-TOP-7
+NSE:PTCIL,Nifty Smallcap 250-TOP-8
+NSE:ATHERENERG,Nifty Smallcap 250-TOP-9
+NSE:SAILIFE,Nifty Smallcap 250-TOP-10
 NSE:WELSPUNLIV,Nifty-500-Top-1
 NSE:PVRINOX,Nifty-500-Top-2
 NSE:THELEELA,Nifty-500-Top-3
 NSE:CYIENT,Nifty-500-Top-4
-NSE:JYOTICNC,Nifty-500-Top-5
-NSE:WELCORP,Nifty-500-Top-6
-NSE:SHYAMMETL,Nifty-500-Top-7
+NSE:SHYAMMETL,Nifty-500-Top-5
+NSE:MCX,Nifty-500-Top-6
+NSE:JYOTICNC,Nifty-500-Top-7
 NSE:LAURUSLABS,Nifty-500-Top-8
 NSE:PTCIL,Nifty-500-Top-9
 NSE:MOTILALOFS,Nifty-500-Top-10
