@@ -2,36 +2,36 @@ Symbol,Tag
 CPPLUS,IPO
 NSE:DHOOTTRANS,IPO
 NSE:LGEINDIA,IPO
-NSE:DIVISLAB,1M-niftymedia-Top-1
-NSE:PPLPHARMA,1M-niftymedia-Top-2
-NSE:GLENMARK,1M-niftymedia-Top-3
-NSE:MANKIND,1M-niftymedia-Top-4
-NSE:LAURUSLABS,1M-niftymedia-Top-5
-NSE:SAILIFE,1M-niftypharma-Top-1
-NSE:EMCURE,1M-niftypharma-Top-2
-NSE:APLLTD,1M-niftypharma-Top-3
-NSE:DIVISLAB,1M-niftypharma-Top-4
-NSE:PPLPHARMA,1M-niftypharma-Top-5
-NSE:PVRINOX,3M-niftymedia-Top-1
-NSE:SUNTV,3M-niftymedia-Top-2
+NSE:PPLPHARMA,1M-niftymedia-Top-1
+NSE:DIVISLAB,1M-niftymedia-Top-2
+NSE:MAXHEALTH,1M-niftymedia-Top-3
+NSE:GLENMARK,1M-niftymedia-Top-4
+NSE:MANKIND,1M-niftymedia-Top-5
+NSE:PNB,1M-niftypsubank-Top-1
+NSE:ICICIBANK,1M-niftypsubank-Top-2
+NSE:HDFCBANK,1M-niftypsubank-Top-3
+NSE:UNIONBANK,1M-niftypsubank-Top-4
+NSE:BANKBARODA,1M-niftypsubank-Top-5
+NSE:SUNTV,3M-niftymedia-Top-1
+NSE:PVRINOX,3M-niftymedia-Top-2
 NSE:SAREGAMA,3M-niftymedia-Top-3
 NSE:TIPSMUSIC,3M-niftymedia-Top-4
 NSE:NAZARA,3M-niftymedia-Top-5
-NSE:LAURUSLABS,3M-niftypharma-Top-1
-NSE:DIVISLAB,3M-niftypharma-Top-2
-NSE:DRREDDY,3M-niftypharma-Top-3
-NSE:GLAND,3M-niftypharma-Top-4
-NSE:PPLPHARMA,3M-niftypharma-Top-5
-NSE:CYIENTDLM,6M-niftyindiadefence-Top-1
-NSE:UNIMECH,6M-niftyindiadefence-Top-2
-NSE:PARAS,6M-niftyindiadefence-Top-3
-NSE:ASTRAMICRO,6M-niftyindiadefence-Top-4
-NSE:DYNAMATECH,6M-niftyindiadefence-Top-5
-NSE:PVRINOX,6M-niftymedia-Top-1
-NSE:SAREGAMA,6M-niftymedia-Top-2
+NSE:PNB,3M-niftypsubank-Top-1
+NSE:MAHABANK,3M-niftypsubank-Top-2
+NSE:BANKBARODA,3M-niftypsubank-Top-3
+NSE:UNIONBANK,3M-niftypsubank-Top-4
+NSE:BANKINDIA,3M-niftypsubank-Top-5
+NSE:SAREGAMA,6M-niftymedia-Top-1
+NSE:PVRINOX,6M-niftymedia-Top-2
 NSE:NAZARA,6M-niftymedia-Top-3
 NSE:SUNTV,6M-niftymedia-Top-4
 NSE:TIPSMUSIC,6M-niftymedia-Top-5
+NSE:PNB,6M-niftybank-Top-1
+NSE:KOTAKBANK,6M-niftybank-Top-2
+NSE:UNIONBANK,6M-niftybank-Top-3
+NSE:FEDERALBNK,6M-niftybank-Top-4
+NSE:ICICIBANK,6M-niftybank-Top-5
 NSE:MTARTECH,YTD-niftyindiadefence-Top-1
 NSE:UNIMECH,YTD-niftyindiadefence-Top-2
 NSE:CYIENTDLM,YTD-niftyindiadefence-Top-3
@@ -42,26 +42,26 @@ NSE:GLAND,YTD-niftypharma-Top-2
 NSE:DIVISLAB,YTD-niftypharma-Top-3
 NSE:AUROPHARMA,YTD-niftypharma-Top-4
 NSE:PPLPHARMA,YTD-niftypharma-Top-5
-NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-1
+NSE:SUNTV,Nifty Smallcap 250-TOP-1
 NSE:PVRINOX,Nifty Smallcap 250-TOP-2
-NSE:SUNTV,Nifty Smallcap 250-TOP-3
-NSE:SAILIFE,Nifty Smallcap 250-TOP-4
-NSE:MEESHO,Nifty Smallcap 250-TOP-5
+NSE:WELSPUNLIV,Nifty Smallcap 250-TOP-3
+NSE:ATHERENERG,Nifty Smallcap 250-TOP-4
+NSE:SAREGAMA,Nifty Smallcap 250-TOP-5
 NSE:SHYAMMETL,Nifty Smallcap 250-TOP-6
-NSE:ATHERENERG,Nifty Smallcap 250-TOP-7
-NSE:CYIENT,Nifty Smallcap 250-TOP-8
-NSE:THELEELA,Nifty Smallcap 250-TOP-9
-NSE:ENGINERSIN,Nifty Smallcap 250-TOP-10
-NSE:WELSPUNLIV,Nifty-500-Top-1
+NSE:ENGINERSIN,Nifty Smallcap 250-TOP-7
+NSE:ABDL,Nifty Smallcap 250-TOP-8
+NSE:IGIL,Nifty Smallcap 250-TOP-9
+NSE:MEESHO,Nifty Smallcap 250-TOP-10
+NSE:SUNTV,Nifty-500-Top-1
 NSE:PVRINOX,Nifty-500-Top-2
-NSE:SUNTV,Nifty-500-Top-3
-NSE:SAILIFE,Nifty-500-Top-4
-NSE:LAURUSLABS,Nifty-500-Top-5
-NSE:DIVISLAB,Nifty-500-Top-6
-NSE:SHYAMMETL,Nifty-500-Top-7
-NSE:ATHERENERG,Nifty-500-Top-8
+NSE:WELSPUNLIV,Nifty-500-Top-3
+NSE:ATHERENERG,Nifty-500-Top-4
+NSE:SAREGAMA,Nifty-500-Top-5
+NSE:SHYAMMETL,Nifty-500-Top-6
+NSE:ENGINERSIN,Nifty-500-Top-7
+NSE:DIVISLAB,Nifty-500-Top-8
 NSE:MOTILALOFS,Nifty-500-Top-9
-NSE:CYIENT,Nifty-500-Top-10
+NSE:APLLTD,Nifty-500-Top-10
 E2E,
 SUDEEPPHRM,
 AEROFLEX,
